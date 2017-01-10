@@ -17,6 +17,11 @@ echo "As of $mytimestamp<br>";
     <tr><td>User:</td><td><input type="text" name="user"></td></tr>
     <tr><td>Callsign:</td><td><input type="text" name="callsign"></td></tr>
     <tr><td>Siren:</td><td><input type="text" name="siren"></td></tr>
+    <tr><td>
+    <input type="radio" name="insideout" value="outdoor" checked> Outdoor
+    <input type="radio" name="insideout" value="indoor"> Indoor
+    <input type="radio" name="insideout" value="unknown"> Unknown
+    </td></tr>
     <tr><td>Location</td><td><input type="text" name="location"></td></tr>
     <tr><td>Tone Quality</td><td><input type="text" name="tonequality" value="Loud & Clear"></td></tr>
     <tr><td>Voice Quality</td><td><input type="text" name="voicequality" value="Loud & Clear"></td></tr>

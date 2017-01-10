@@ -23,16 +23,17 @@ $siren = mysqli_real_escape_string($conn, $_POST['siren']);
 $location = mysqli_real_escape_string($conn, $_POST['location']);
 $tonequality = mysqli_real_escape_string($conn, $_POST['tonequality']);
 $voicequality = mysqli_real_escape_string($conn, $_POST['voicequality']);
+$insideout = mysqli_real_escape_string($conn, $_POST['insideout']);
 $entry_time = $mytimestamp;
 
-/*
+
 if ( $siren == '' ){
     $siren = 0;
 }
-*/
+
 //echo "attempting insert of $user, $callsign, $siren, $location, $tonequality, $voicequality, $entry_time <br><br>";
 
-$sql="INSERT INTO Checkins (user, callsign, siren, location, tonequality, voicequality, entry_time) VALUES (\"$user\", \"$callsign\", \"$siren\", \"$location\", \"$tonequality\", \"$voicequality\", \"$entry_time\")";
+$sql="INSERT INTO Checkins (user, callsign, siren, location, tonequality, voicequality, entry_time, insideout) VALUES (\"$user\", \"$callsign\", \"$siren\", \"$location\", \"$tonequality\", \"$voicequality\", \"$entry_time\", \"$insideout\")";
 
 //echo "SQL Statement: $sql<br><br>";
 
