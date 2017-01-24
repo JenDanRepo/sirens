@@ -1,6 +1,6 @@
 <html>
  <head>
-  <title>Siren Net Check-ins</title>
+  <title>Siren Net Leaderboard</title>
  </head>
 <body>
 
@@ -21,40 +21,36 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
 if ($conn->connect_error) {
     die('Connection failed: ' . $conn->connect_error);
-} /*else {
-	echo "<p>DB seems to be working as user: $username.</p>";
-}*/
-
-
+} 
 
 $sql = "select callsign, count(*) as c FROM Checkins GROUP BY callsign ORDER BY c desc";
 
 $result = $conn->query($sql);
 
 echo "<p>SQL:<br> $sql</p>";
-echo "<h3>Most Recent Check Ins For Sirens:</h3>";
+echo "<h3>Siren Net Leaderboard</h3>";
 echo "<table>";
 echo "<th>Callsign</th> <th>Name</th> <th>Number of Checkins</th>";
 
 while($row = mysqli_fetch_array($result)) {
     $callsign = $row['callsign'];
+    
     //$user = $row[''];
+        $user_sql = "SELECT user, COUNT(*) AS magnitude FROM Checkins WHERE callsign = \"$callsign\" GROUP BY user ORDER BY magnitude DESC LIMIT 1";
+        $user_result = $conn->query($user_sql);
+        $user_row=mysqli_fetch_array($user_result);
+    
+    $user= $user_row['user'];
     $qty = $row['c'];
     echo "<tr><td>$callsign</td> <td>$user</td> <td>$qty</td></tr>";
 } 
-
 
 echo "</table>";
 
 $error = mysqli_error($conn);
 echo "Error: $error";
 
-
-
-
 mysqli_close($conn);
-
-
 ?>
 
 </body>
