@@ -11,6 +11,7 @@ echo "As of $mytimestamp<br>";
 ?>
 <a href="./leaderboard.php">Leaderboard</a>
 <a href="./view_sirens.php">Siren List</a>
+<a href="./user.php">User Summary</a>
 <a href="./hello.php">Hello</a>
 
 <h4>Add a checkin:</h4>
@@ -101,7 +102,9 @@ while($row = mysqli_fetch_array($result)) {
     $location = $newrow['location'];
     $tonequality = $newrow['tonequality'];
     $voicequality = $newrow['voicequality'];
-    echo "<tr><td>$entry_time</td> <td>$user</td> <td>$callsign</td> <td>$siren<br></td> <td>$location</td> <td>$tonequality</td> <td>$voicequality</td></tr>";
+    // <a href=\"./user.php?callsign=$callsign\">$callsign</a>;
+    //echo "<tr><td>$entry_time</td> <td>$user</td> <td>$callsign</td> <td>$siren<br></td> <td>$location</td> <td>$tonequality</td> <td>$voicequality</td></tr>";
+    echo "<tr><td>$entry_time</td> <td>$user</td> <td><a href=\"./user.php?callsign=$callsign\">$callsign</a></td> <td>$siren<br></td> <td>$location</td> <td>$tonequality</td> <td>$voicequality</td></tr>";
 } 
 
 echo "</table>";
@@ -151,6 +154,7 @@ echo "<th>Callsign</th> <th>Name</th> <th>Number of Checkins</th>";
 while($row = mysqli_fetch_array($result)) {
     $callsign = $row['callsign'];
     //$user = $row[''];
+    $user = "";
     $qty = $row['c'];
     echo "<tr><td>$callsign</td> <td>$user</td> <td>$qty</td></tr>";
 } 
