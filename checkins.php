@@ -70,7 +70,7 @@ $sql = "SELECT siren, address, MAX(entry_time) AS entry_time, name FROM Checkins
 
 $result = $conn->query($sql);
 
-echo "<p>SQL:<br> $sql</p>";
+// echo "<p>SQL:<br> $sql</p>";
 echo "<h3>Most Recent Check Ins For Sirens:</h3>";
 echo "<table>";
 echo "<th>Time</th> <th>User</th> <th>Callsign</th> <th>Siren</th> <th>Location</th> <th>Tone Quality</th> <th>Voice Quality</th>";
