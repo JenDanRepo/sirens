@@ -112,9 +112,9 @@ echo "</table>";
 $error = mysqli_error($conn);
 echo "Error: $error";
 
-//echo "If you got here without errors, things are working.";
 
 // Print out the Checkins Table Info:
+/*
 $sql = "SELECT * FROM Checkins";
 
 $result = $conn->query($sql);
@@ -136,38 +136,14 @@ while($row = mysqli_fetch_array($result)) {
 } 
 
 echo "</table>";
+*/
 
 $error = mysqli_error($conn);
 echo "Error: $error";
-
-// Start test code
-
-$sql = "select callsign, count(*) as c FROM Checkins GROUP BY callsign ORDER BY c desc";
-
-$result = $conn->query($sql);
-
-echo "<p>SQL:<br> $sql</p>";
-echo "<h3>Siren Net Leaderboard</h3>";
-echo "<table>";
-echo "<th>Callsign</th> <th>Name</th> <th>Number of Checkins</th>";
-
-while($row = mysqli_fetch_array($result)) {
-    $callsign = $row['callsign'];
-    //$user = $row[''];
-    $user = "";
-    $qty = $row['c'];
-    echo "<tr><td>$callsign</td> <td>$user</td> <td>$qty</td></tr>";
-} 
-
-echo "</table>";
-
-$error = mysqli_error($conn);
-echo "Error: $error";
-// End Test code
-
 
 mysqli_close($conn);
 
+/*
 echo "<p>Checkins<pre>
 +----+--------------+---------------------+-------+----------+------------------------------+--------------+--------------+
 | id | user         | entry_time          | siren | callsign | location                     | tonequality  | voicequality |
@@ -191,7 +167,7 @@ echo "<p>Sirens<pre>
 +----+--------+-----------------+----------+-----------------+---------------+-------+------+-----------+-------------+
 </pre>";
 
-/*
+
 SELECT *,
     ROW_NUMBER() OVER (PARTITION BY ID ORDER BY siren desc) as rn    
     FROM Checkins;
