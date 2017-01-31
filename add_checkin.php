@@ -40,7 +40,7 @@ $sql="INSERT INTO Checkins (user, callsign, siren, location, tonequality, voiceq
 if (mysqli_query($conn, $sql)) {
     header('Location: checkins.php');
     exit;
-    echo "New record created successfully";
+    // echo "New record created successfully";
 } else {
     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 }
