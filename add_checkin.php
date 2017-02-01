@@ -38,9 +38,10 @@ $sql="INSERT INTO Checkins (user, callsign, siren, location, tonequality, voiceq
 //echo "SQL Statement: $sql<br><br>";
 
 if (mysqli_query($conn, $sql)) {
-    header('Location: checkins.php');
-    exit;
-    // echo "New record created successfully";
+    //header('Location: checkins.php');
+    //exit;
+    echo "New record created successfully";
+    echo "Back to <a href=\"./checkins.php\">Checkins Page</a>";
 } else {
     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 }
