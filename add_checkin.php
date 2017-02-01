@@ -12,7 +12,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die('Connection failed: ' . $conn->connect_error);
 } else {
-	echo "<p>DB seems to be working as user: $username.</p>";
+	//echo "<p>DB seems to be working as user: $username.</p>";
 }
 
 // Form that submits to this script is in add_checkin.php
