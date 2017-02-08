@@ -28,7 +28,7 @@ $sql = "SELECT * FROM Sirens" or die(mysqli_error());
 $result = $conn->query($sql);
 
 echo "
-<table>
+<table border=1>
 <tr>
 <th>number</th>
 <th>name</th>
