@@ -146,7 +146,7 @@ while($row = mysqli_fetch_array($result)) {
         $user_row=mysqli_fetch_array($user_result);
     
     $user= $user_row['user'];
-    
+
     $leadstring = $leadstring . "<tr>";
     $leadstring = $leadstring . "<td><a href=\"./user.php?callsign=$callsign\">$callsign</a></td>";
     $leadstring = $leadstring . "<td>$user</td>";
@@ -194,7 +194,7 @@ while($row = mysqli_fetch_array($result)) {
 
 echo "Checkins: $counter";
 echo "<br><br>";
-echo "<table>";
+echo "<table border=1>";
 echo "<th>Time</th> <th>User</th> <th>Callsign</th> <th>Siren</th> <th>Location</th> <th>Tone Quality</th> <th>Voice Quality</th> <th>Inside/Outside</th>";
 echo "$datastring";
 echo "</table>";
