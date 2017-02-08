@@ -3,7 +3,11 @@
   <title>PHP Test</title>
  </head>
 <body>
-
+<a href="./leaderboard.php">Leaderboard</a>
+<a href="./view_sirens.php">Siren List</a>
+<a href="./user.php">User Summary</a>
+<a href="./siren.php">Siren</a>
+<a href="./hello.php">Hello</a>
 <?php
 
 $mytimestamp = date('Y-m-d H:i:s');
@@ -26,9 +30,8 @@ $result = $conn->query($sql);
 echo "
 <table>
 <tr>
-<TH>ID</th>
 <th>number</th>
-<th>name<th>
+<th>name</th>
 <th>language</th>
 <th>address</th>
 <th>city</th>
@@ -45,16 +48,16 @@ while($row = mysqli_fetch_array($result)) {
     $name = $row['name'];
     $language = $row['language'];
     $address = $row['address'];
-    $city = $row['state'];
+    $city = $row['city'];
     $state = $row['state'];
     $zip = $row['zip'];
     $lat = $row['lat'];
     $lng = $row['lng'];
     echo "<tr>";
     //echo "<br>$name<br> $lat<br> $lng<br>";
-    echo "<td> $id</td>";
-    echo "<td> $number</td>";
-    echo "<td> $name</td>";
+    //echo "<td> $id</td>";
+    echo "<td> <a href=\"./siren.php?number=$number\">$number</a></td>";
+    echo "<td> <a href=\"./siren.php?number=$number\">$name</a></td>";
     echo "<td> $language</td>";
     echo "<td> $address</td>";
     echo "<td> $city</td>";
