@@ -57,7 +57,7 @@ $result = $conn->query($sql) or die(mysqli_error());
 // echo "<p>SQL:<br> $sql</p>";
 echo "<h3>Most Recent Check Ins For Sirens:</h3>";
 echo "<table border=1>";
-echo "<th>Time</th> <th>User</th> <th>Callsign</th> <th>Siren</th> <th>Location</th> <th>Tone Quality</th> <th>Voice Quality</th>";
+echo "<th>Time</th> <th>User</th> <th>Callsign</th> <th>Siren</th> <th>Person's Location</th> <th>Tone Quality</th> <th>Voice Quality</th>";
 
 
 while($row = mysqli_fetch_array($result)) {
@@ -76,7 +76,7 @@ while($row = mysqli_fetch_array($result)) {
     $tonequality = $newrow['tonequality'];
     $voicequality = $newrow['voicequality'];
 
-    echo "<tr><td>$entry_time</td> <td>$user</td> <td><a href=\"./user.php?callsign=$callsign\">$callsign</a></td> <td>$siren<br></td> <td>$location</td> <td>$tonequality</td> <td>$voicequality</td></tr>";
+    echo "<tr><td>$entry_time</td> <td>$user</td> <td><a href=\"./user.php?callsign=$callsign\">$callsign</a></td> <td><a href=\"./siren.php?number=$siren\">$siren</a><br></td> <td>$location</td> <td>$tonequality</td> <td>$voicequality</td></tr>";
 } 
 
 echo "</table>";
@@ -95,7 +95,7 @@ $result = $conn->query($sql) or die(mysqli_error());
 
 echo "<h3>Checkins Table:</h3>";
 echo "<table border=1>";
-echo "<th>Time</th> <th>User</th> <th>Callsign</th> <th>Siren</th> <th>Location</th> <th>Tone Quality</th> <th>Voice Quality</th>";
+echo "<th>Time</th> <th>User</th> <th>Callsign</th> <th>Siren</th> <th>Person's Location</th> <th>Tone Quality</th> <th>Voice Quality</th>";
 
 while($row = mysqli_fetch_array($result)) {
     $user = $row['user'];
@@ -105,7 +105,7 @@ while($row = mysqli_fetch_array($result)) {
     $location = $row['location'];
     $tonequality = $row['tonequality'];
     $voicequality = $row['voicequality'];
-    echo "<tr><td>$entry_time</td> <td>$user</td> <td>$callsign</td> <td>$siren<br></td> <td>$location</td> <td>$tonequality</td> <td>$voicequality</td></tr>";
+    echo "<tr><td>$entry_time</td> <td>$user</td> <td><a href=\"./user.php?callsign=$callsign\">$callsign</a></td> <td><a href=\"./siren.php?number=$siren\">$siren</a><br></td> <td>$location</td> <td>$tonequality</td> <td>$voicequality</td></tr>";
 } 
 
 echo "</table>";
