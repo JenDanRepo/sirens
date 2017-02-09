@@ -4,15 +4,12 @@
  </head>
 <body>
 
-<h1>Siren Net Check-ins</h1>
+<h1>Siren Net Leaderboard</h1>
+
 <?php
 $mytimestamp = date('Y-m-d H:i:s');
 echo "As of $mytimestamp<br>";
-?>
 
-<h4>Leaderboard</h4>
-
-<?php
 
 require('phpsqlsearch_dbinfo.php');
 
@@ -27,9 +24,8 @@ $sql = "select callsign, count(*) as c FROM Checkins GROUP BY callsign ORDER BY 
 
 $result = $conn->query($sql);
 
-echo "<p>SQL:<br> $sql</p>";
-echo "<h3>Siren Net Leaderboard</h3>";
-echo "<table>";
+// echo "<p>SQL:<br> $sql</p>";
+echo "<table border=1>";
 echo "<th>Callsign</th> <th>Name</th> <th>Number of Checkins</th>";
 
 while($row = mysqli_fetch_array($result)) {
@@ -42,7 +38,7 @@ while($row = mysqli_fetch_array($result)) {
     
     $user= $user_row['user'];
     $qty = $row['c'];
-    echo "<tr><td>$callsign</td> <td>$user</td> <td>$qty</td></tr>";
+    echo "<tr><td><a href=\"./user.php?callsign=$callsign\">$callsign</a></td> <td>$user</td> <td>$qty</td></tr>";
 } 
 
 echo "</table>";

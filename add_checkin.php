@@ -1,10 +1,17 @@
-
 <?php
-
+require "config.php";
 $mytimestamp = date('Y-m-d H:i:s');
 //echo "Timestamp is: $mytimestamp<br>";
 
 require('phpsqlsearch_dbinfo.php');
+//echo "loaded phpsqlsearch_dbinfo.php";
+
+if($LS->isLoggedIn()){
+      echo "You are logged in. <a href='home.php'>Home</a>";
+} else{
+      echo "You are not logged in. <a href='login.php'>Log In</a>";
+	exit;
+	}
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
