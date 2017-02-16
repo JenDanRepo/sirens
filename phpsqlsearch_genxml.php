@@ -24,21 +24,24 @@ $sql = "SELECT number, address, CONCAT(number,\" - \",name) as name, lat, lng FR
 // Find Sirens that $callsign has checked
 // should only do if callsign is not null
 
-$sql = "SELECT number, address, CONCAT(number,\" - \",name) as name, lat, lng FROM Sirens WHERE number IN (SELECT siren FROM Checkins WHERE callsign = \"$callsign\")";
+if ($callsign !== ""){
 
-$result = $conn->query($sql) or die(mysqli_error());
+  $sql = "SELECT number, address, CONCAT(number,\" - \",name) as name, lat, lng FROM Sirens WHERE number IN (SELECT siren FROM Checkins WHERE callsign = \"$callsign\")";
 
-// Iterate through the rows, adding XML nodes for each
-while ($row = mysqli_fetch_array($result)){
-  $node = $dom->createElement("marker");
-  $newnode = $parnode->appendChild($node);
-  $newnode->setAttribute("id", $row['number']);
-  $newnode->setAttribute("name", $row['name']);
-  $newnode->setAttribute("address", $row['address']);
-  $newnode->setAttribute("lat", $row['lat']);
-  $newnode->setAttribute("lng", $row['lng']);
-  $newnode->setAttribute("type", "checked");
-  //echo "we're in the loop<br>";
+  $result = $conn->query($sql) or die(mysqli_error());
+
+  // Iterate through the rows, adding XML nodes for each
+  while ($row = mysqli_fetch_array($result)){
+    $node = $dom->createElement("marker");
+    $newnode = $parnode->appendChild($node);
+    $newnode->setAttribute("id", $row['number']);
+    $newnode->setAttribute("name", $row['name']);
+    $newnode->setAttribute("address", $row['address']);
+    $newnode->setAttribute("lat", $row['lat']);
+    $newnode->setAttribute("lng", $row['lng']);
+    $newnode->setAttribute("type", "checked");
+    //echo "we're in the loop<br>";
+  }
 }
 
 
