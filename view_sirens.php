@@ -3,11 +3,13 @@
   <title>PHP Test</title>
  </head>
 <body>
-<a href="./leaderboard.php">Leaderboard</a>
-<a href="./view_sirens.php">Siren List</a>
-<a href="./user.php">User Summary</a>
-<a href="./siren.php">Siren</a>
-<a href="./hello.php">Hello</a>
+<h1>SFSiren.net</h1>
+    <a href="./checkins.php">Checkins</a>
+    <a href="./leaderboard.php">Leaderboard</a>
+    <a href="./view_sirens.php">Siren List</a>
+    <a href="./maps.php">User Summary</a>
+    <a href="./about.php">About</a>
+<hr>
 <?php
 
 $mytimestamp = date('Y-m-d H:i:s');
@@ -26,6 +28,10 @@ if ($conn->connect_error) {
 
 $sql = "SELECT * FROM Sirens" or die(mysqli_error());
 $result = $conn->query($sql);
+echo "
+    <iframe src=\"https://www.google.com/maps/d/embed?mid=15r3FQk78LViQYE2N537Gxky_-UY\" width=\"640\" height=\"480\"></iframe>
+";
+
 
 echo "
 <table border=1>

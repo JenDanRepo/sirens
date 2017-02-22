@@ -4,29 +4,33 @@
  </head>
 <body>
 
-<h1>Siren Net Check-ins</h1>
+<h1>SFSiren.net</h1>
+    <a href="./checkins.php">Checkins</a>
+    <a href="./leaderboard.php">Leaderboard</a>
+    <a href="./view_sirens.php">Siren List</a>
+    <a href="./maps.php">User Summary</a>
+    <a href="./about.php">About</a>
+    <hr>
+
+<h3>Checkins</h3>
 <?php
 $mytimestamp = date('Y-m-d H:i:s');
-echo "As of $mytimestamp<br>";
+echo "<p>As of $mytimestamp<br>";
 ?>
-<a href="./leaderboard.php">Leaderboard</a>
-<a href="./view_sirens.php">Siren List</a>
-<a href="./user.php">User Summary</a>
-<a href="./hello.php">Hello</a>
 
 <h4>Add a checkin:</h4>
 
 <form action="add_checkin.php" method="post" border=1>
     <table border="0">
-    <tr><td>User:</td><td><input type="text" name="user"></td></tr>
     <tr><td>Callsign:</td><td><input type="text" name="callsign"></td></tr>
-    <tr><td>Siren:</td><td><input type="text" name="siren"></td></tr>
+    <tr><td>User:</td><td><input type="text" name="user"></td></tr>
     <tr><td>
     <input type="radio" name="insideout" value="outdoor" checked> Outdoor
     <input type="radio" name="insideout" value="indoor"> Indoor
     <input type="radio" name="insideout" value="unknown"> Unknown
     </td></tr>
     <tr><td>Location</td><td><input type="text" name="location"></td></tr>
+    <tr><td>Siren:</td><td><input type="text" name="siren"></td></tr>
     <tr><td>Tone Quality</td><td><input type="text" name="tonequality" value="Loud & Clear"></td></tr>
     <tr><td>Voice Quality</td><td><input type="text" name="voicequality" value="Loud & Clear"></td></tr>
     </table>

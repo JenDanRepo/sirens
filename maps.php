@@ -8,7 +8,8 @@
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
       #map {
-        height: 90%;
+        height: 60%;
+        width:  50%;
       }
       /* Optional: Makes the sample page fill the window. */
       html, body {
@@ -21,11 +22,23 @@
 
   <body>
     <div id="header">
-        <h3>User Has checked into</h3>
+        <h1>SFSiren.net</h1>
+        <a href="./checkins.php">Checkins</a>
+        <a href="./leaderboard.php">Leaderboard</a>
+        <a href="./view_sirens.php">Siren List</a>
+        <a href="./maps.php">User Summary</a>
+        <a href="./about.php">About</a>
+        <hr>
     </div>
     <div id="controller">
-    a button for me, a button for everyone, a box and a button for search<br>
-    Me = Green, Someone = Yellow, Nobody = Red
+    <h3>User Summary</h3>
+    <form action="maps.php" method="get" border=1>
+     Callsign:<input type="text" name="callsign">
+     <input type="submit">
+     <br>
+    </form>
+    <p>
+    Green = Checked in by this callsign, Yellow = Checked in by someone, Red = Checked in by nobody.
     </div>
     <div id="map"></div>
 
@@ -87,7 +100,9 @@
 
         if (callsign !== ""){
             sirenxml = sirenxml.concat("?callsign=", callsign);
-        } ;
+        } else {
+            sirenxml = sirenxml.concat("?callsign=nobody");
+        };
 
         // old url: https://storage.googleapis.com/mapsdevsite/json/mapmarkers2.xml
           downloadUrl(sirenxml, function(data) {
@@ -150,6 +165,65 @@
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAtRIxwlNll1t441LlLKtSGZP2zCerjWgc&callback=initMap">
     </script>
+
+    <?php
+
+        $mytimestamp = date('Y-m-d H:i:s');
+        //echo "Timestamp is: $mytimestamp<br>";
+
+        require('phpsqlsearch_dbinfo.php');
+
+        // Create connection
+        $conn = new mysqli($servername, $username, $password, $dbname);
+        // Check connection
+        if ($conn->connect_error) {
+            die('Connection failed: ' . $conn->connect_error);
+        } 
+
+        $callsign = mysqli_real_escape_string($conn, $_GET['callsign']);
+
+        if ($callsign == ""){
+            $callsign = "nobody";
+        }
+
+        $user_sql = "SELECT user, COUNT(*) AS magnitude FROM Checkins WHERE callsign = \"$callsign\" GROUP BY user ORDER BY magnitude DESC LIMIT 1";
+                $user_result = $conn->query($user_sql);
+                $user_row=mysqli_fetch_array($user_result);
+            
+            $user= $user_row['user'];
+
+        $sql="SELECT * FROM Checkins WHERE callsign=\"$callsign\" ORDER BY entry_time DESC";
+
+        //echo "SQL Statement: $sql<br><br>";
+
+        $result = $conn->query($sql);
+
+        $counter = 0;
+
+        while($row = mysqli_fetch_array($result)) {
+            $counter++;
+            // $user = $row['user'];
+            $entry_time = $row['entry_time'];
+            $siren = $row['siren'];
+            $callsign = $row['callsign'];
+            $location = $row['location'];
+            $tonequality = $row['tonequality'];
+            $voicequality = $row['voicequality'];
+            $insideout = $row['insideout'];
+            $datastring = $datastring."<tr><td>$entry_time</td> <td>$siren</td> <td>Siren Location</td> <td>$location</td> <td>$tonequality</td> <td>$voicequality</td><td>$insideout</td></tr>";
+        } 
+
+        echo "<h3>User Summary for $user ($callsign)</h3>";
+        echo "Checkins: $counter";
+        echo "<br><br>";
+        echo "<table>";
+        echo "<th>Time</th> <th>Siren</th> <th>Siren Location</th> <th>Reported Location</th> <th>Tone Quality</th> <th>Voice Quality</th> <th>Inside/Outside</th>";
+        echo "$datastring";
+        echo "</table>";
+
+        mysqli_close($conn);
+
+        ?>
   </body>
 </html>
 

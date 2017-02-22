@@ -4,7 +4,15 @@
  </head>
 <body>
 
-<h1>Siren Net Leaderboard</h1>
+<h1>SFSiren.net</h1>
+        <a href="./checkins.php">Checkins</a>
+        <a href="./leaderboard.php">Leaderboard</a>
+        <a href="./view_sirens.php">Siren List</a>
+        <a href="./maps.php">User Summary</a>
+        <a href="./about.php">About</a>
+        <hr>
+
+<h3>Leaderboard</h3>
 
 <?php
 $mytimestamp = date('Y-m-d H:i:s');
