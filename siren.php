@@ -1,12 +1,13 @@
 <html>
 <title>Siren Report</title>
 <body>
+<h1>SFSiren.net</h1>
 <a href="./checkins.php">Checkins</a>
 <a href="./leaderboard.php">Leaderboard</a>
 <a href="./view_sirens.php">Siren List</a>
 <a href="./user.php">User Summary</a>
-<a href="./siren.php">Siren</a>
-<a href="./hello.php">Hello</a>
+<a href="./about.php">About</a>
+<hr>
 <?php
 
 require('phpsqlsearch_dbinfo.php');
