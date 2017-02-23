@@ -38,7 +38,7 @@ while ($row = array_shift($results)){
     
     $user = get_user_from_callsign($callsign);
     $qty = $row['c']; // c stands for "count" or "quantity of checkins"
-    echo "<tr><td><a href=\"./user.php?callsign=$callsign\">$callsign</a></td> <td>$user</td> <td>$qty</td></tr>";
+    echo "<tr><td><a href=\"./maps.php?callsign=$callsign\">$callsign</a></td> <td>$user</td> <td>$qty</td></tr>";
 } 
 
 echo "</table>";
