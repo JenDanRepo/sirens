@@ -18,43 +18,31 @@
 $mytimestamp = date('Y-m-d H:i:s');
 echo "As of $mytimestamp<br>";
 
-
 require('phpsqlsearch_dbinfo.php');
+require('php_siren_lib.php');
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-    die('Connection failed: ' . $conn->connect_error);
-} 
+$pdostring = 'mysql:host=' . $servername .';dbname=' . $dbname .';charset=utf8mb4';
 
-$sql = "select callsign, count(*) as c FROM Checkins GROUP BY callsign ORDER BY c desc";
+$db = new PDO($pdostring, $username, $password);
+$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+$db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 
-$result = $conn->query($sql);
+$stmt = $db->query('select callsign, count(*) as c FROM Checkins GROUP BY callsign ORDER BY c desc');
+$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// echo "<p>SQL:<br> $sql</p>";
 echo "<table border=1>";
 echo "<th>Callsign</th> <th>Name</th> <th>Number of Checkins</th>";
 
-while($row = mysqli_fetch_array($result)) {
+while ($row = array_shift($results)){
     $callsign = $row['callsign'];
     
-    //$user = $row[''];
-        $user_sql = "SELECT user, COUNT(*) AS magnitude FROM Checkins WHERE callsign = \"$callsign\" GROUP BY user ORDER BY magnitude DESC LIMIT 1";
-        $user_result = $conn->query($user_sql);
-        $user_row=mysqli_fetch_array($user_result);
-    
-    $user= $user_row['user'];
-    $qty = $row['c'];
+    $user = get_user_from_callsign($callsign);
+    $qty = $row['c']; // c stands for "count" or "quantity of checkins"
     echo "<tr><td><a href=\"./user.php?callsign=$callsign\">$callsign</a></td> <td>$user</td> <td>$qty</td></tr>";
 } 
 
 echo "</table>";
 
-$error = mysqli_error($conn);
-echo "Error: $error";
-
-mysqli_close($conn);
 ?>
 
 </body>

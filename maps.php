@@ -172,35 +172,51 @@
         //echo "Timestamp is: $mytimestamp<br>";
 
         require('phpsqlsearch_dbinfo.php');
+        require('php_siren_lib.php');
 
+        /*
         // Create connection
         $conn = new mysqli($servername, $username, $password, $dbname);
         // Check connection
         if ($conn->connect_error) {
             die('Connection failed: ' . $conn->connect_error);
         } 
-
-        $callsign = mysqli_real_escape_string($conn, $_GET['callsign']);
+        */
+        $pdostring = 'mysql:host=' . $servername .';dbname=' . $dbname .';charset=utf8mb4';
+        $db = new PDO($pdostring, $username, $password);
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+        //$callsign = mysqli_real_escape_string($conn, $_GET['callsign']);
+        $callsign = $_GET['callsign'];
 
         if ($callsign == ""){
             $callsign = "nobody";
         }
 
+        /*
         $user_sql = "SELECT user, COUNT(*) AS magnitude FROM Checkins WHERE callsign = \"$callsign\" GROUP BY user ORDER BY magnitude DESC LIMIT 1";
                 $user_result = $conn->query($user_sql);
                 $user_row=mysqli_fetch_array($user_result);
             
             $user= $user_row['user'];
+        */
+        $user = get_user_from_callsign($callsign);
 
         $sql="SELECT * FROM Checkins WHERE callsign=\"$callsign\" ORDER BY entry_time DESC";
 
         //echo "SQL Statement: $sql<br><br>";
 
-        $result = $conn->query($sql);
+        //$result = $conn->query($sql);
 
         $counter = 0;
 
-        while($row = mysqli_fetch_array($result)) {
+        $stmt = $db->prepare("SELECT * FROM Checkins WHERE callsign=? ORDER BY entry_time DESC");
+        $stmt->execute(array($callsign));
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+        //while($row = mysqli_fetch_array($result)) {
+        while ($row = array_shift($rows)){
             $counter++;
             // $user = $row['user'];
             $entry_time = $row['entry_time'];
@@ -221,7 +237,7 @@
         echo "$datastring";
         echo "</table>";
 
-        mysqli_close($conn);
+        //mysqli_close($conn);
 
         ?>
   </body>

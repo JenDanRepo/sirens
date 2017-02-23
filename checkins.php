@@ -42,66 +42,44 @@ echo "<p>As of $mytimestamp<br>";
 <?php
 
 require('phpsqlsearch_dbinfo.php');
+require('php_siren_lib.php');
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-    die('Connection failed: ' . $conn->connect_error);
-} /*else {
-	echo "<p>DB seems to be working as user: $username.</p>";
-}*/
+$pdostring = 'mysql:host=' . $servername .';dbname=' . $dbname .';charset=utf8mb4';
 
-// Print most recent checkin for sirens with records
+$db = new PDO($pdostring, $username, $password);
+$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+$db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 
-$sql = "SELECT siren, address, MAX(entry_time) AS entry_time, name FROM Checkins T1 LEFT JOIN Sirens T2 on T1.siren = T2.id GROUP BY siren ORDER BY MIN(entry_time) DESC";
-
-$result = $conn->query($sql) or die(mysqli_error());
-
-// echo "<p>SQL:<br> $sql</p>";
 echo "<h3>Most Recent Check Ins For Sirens:</h3>";
 echo "<table border=1>";
 echo "<th>Time</th> <th>User</th> <th>Callsign</th> <th>Siren</th> <th>Person's Location</th> <th>Tone Quality</th> <th>Voice Quality</th>";
 
-
-while($row = mysqli_fetch_array($result)) {
-    //$user = $row['user'];
+foreach($db->query('SELECT siren, address, MAX(entry_time) AS entry_time, name FROM Checkins T1 LEFT JOIN Sirens T2 on T1.siren = T2.id GROUP BY siren ORDER BY MIN(entry_time) DESC') as $row) {
+  
     $entry_time = $row['entry_time'];
     $siren = $row['siren'];
 
-        $newsql = "SELECT * FROM Checkins WHERE siren = $siren ORDER BY entry_time DESC LIMIT 1";
-        $newresult = $conn->query($newsql) or die(mysqli_error());
+        $stmt = $db->prepare("SELECT * FROM Checkins WHERE siren = ? ORDER BY entry_time DESC LIMIT 1");
+        $stmt->execute(array($siren));
+        $newrow = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        $newrow = mysqli_fetch_array($newresult);
-
-    $user = $newrow['user'];
-    $callsign = $newrow['callsign'];
-    $location = $newrow['location'];
-    $tonequality = $newrow['tonequality'];
-    $voicequality = $newrow['voicequality'];
+    $user = $newrow[0]['user'];
+    $callsign = $newrow[0]['callsign'];
+    $location = $newrow[0]['location'];
+    $tonequality = $newrow[0]['tonequality'];
+    $voicequality = $newrow[0]['voicequality'];
 
     echo "<tr><td>$entry_time</td> <td>$user</td> <td><a href=\"./user.php?callsign=$callsign\">$callsign</a></td> <td><a href=\"./siren.php?number=$siren\">$siren</a><br></td> <td>$location</td> <td>$tonequality</td> <td>$voicequality</td></tr>";
 } 
 
 echo "</table>";
 
-$error = mysqli_error($conn);
-echo "Error: $error";
-
-// End printing most recent check in by siren
-
-
-// Print out the complete Checkins Table Info:
-
-$sql = "SELECT * FROM Checkins";
-
-$result = $conn->query($sql) or die(mysqli_error());
-
 echo "<h3>Checkins Table:</h3>";
 echo "<table border=1>";
 echo "<th>Time</th> <th>User</th> <th>Callsign</th> <th>Siren</th> <th>Person's Location</th> <th>Tone Quality</th> <th>Voice Quality</th>";
 
-while($row = mysqli_fetch_array($result)) {
+foreach($db->query('SELECT * FROM Checkins') as $row) {
+//while($row = mysqli_fetch_array($result)) {
     $user = $row['user'];
     $entry_time = $row['entry_time'];
     $siren = $row['siren'];
@@ -113,12 +91,6 @@ while($row = mysqli_fetch_array($result)) {
 } 
 
 echo "</table>";
-
-
-//$error = mysqli_error($conn);
-//echo "Error: $error";
-
-mysqli_close($conn);
 
 ?>
 

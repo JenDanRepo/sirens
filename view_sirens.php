@@ -16,7 +16,9 @@ $mytimestamp = date('Y-m-d H:i:s');
 echo "As of $mytimestamp<br>";
 
 require('phpsqlsearch_dbinfo.php');
+require('php_siren_lib.php');
 
+/*
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
@@ -28,6 +30,13 @@ if ($conn->connect_error) {
 
 $sql = "SELECT * FROM Sirens" or die(mysqli_error());
 $result = $conn->query($sql);
+*/
+
+$pdostring = 'mysql:host=' . $servername .';dbname=' . $dbname .';charset=utf8mb4';
+$db = new PDO($pdostring, $username, $password);
+$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+$db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+
 echo "
     <iframe src=\"https://www.google.com/maps/d/embed?mid=15r3FQk78LViQYE2N537Gxky_-UY\" width=\"640\" height=\"480\"></iframe>
 ";
@@ -48,7 +57,8 @@ echo "
 </tr>
 ";
 
-while($row = mysqli_fetch_array($result)) {
+foreach($db->query('SELECT * FROM Sirens') as $row) {
+//while($row = mysqli_fetch_array($result)) {
     $id = $row['id'];
     $number = $row['number'];
     $name = $row['name'];
@@ -77,7 +87,7 @@ while($row = mysqli_fetch_array($result)) {
 echo "</table>";
 
 
-mysqli_close($conn);
+//mysqli_close($conn);
 
 ?>
 
