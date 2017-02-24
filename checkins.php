@@ -87,7 +87,7 @@ foreach($db->query('SELECT * FROM Checkins') as $row) {
     $location = $row['location'];
     $tonequality = $row['tonequality'];
     $voicequality = $row['voicequality'];
-    echo "<tr><td>$entry_time</td> <td>$user</td> <td><a href=\"./user.php?callsign=$callsign\">$callsign</a></td> <td><a href=\"./siren.php?number=$siren\">$siren</a><br></td> <td>$location</td> <td>$tonequality</td> <td>$voicequality</td></tr>";
+    echo "<tr><td>$entry_time</td> <td>$user</td> <td><a href=\"./maps.php?callsign=$callsign\">$callsign</a></td> <td><a href=\"./siren.php?number=$siren\">$siren</a><br></td> <td>$location</td> <td>$tonequality</td> <td>$voicequality</td></tr>";
 } 
 
 echo "</table>";
