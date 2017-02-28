@@ -1,13 +1,21 @@
+<!DOCTYPE html>
+<link rel="stylesheet" type="text/css" href="sirens.css">
 <html>
 <title>Siren Report</title>
 <body>
+<div class="pagetitle">
 <h1>SFSiren.net</h1>
-        <a href="./checkins.php">Checkins</a>
-        <a href="./leaderboard.php">Leaderboard</a>
-        <a href="./view_sirens.php">Siren List</a>
-        <a href="./maps.php">User Summary</a>
-        <a href="./about.php">About</a>
-        <hr>
+</div>
+<div class="nav_menu">
+    <ul>
+    <li><a href="./checkins.php">Checkins</a></li>
+    <li><a href="./leaderboard.php">Leaderboard</a></li>
+    <li><a href="./view_sirens.php">Siren List</a></li>
+    <li><a href="./maps.php">User Summary</a></li>
+    <li><a href="./about.php">About</a></li>
+    </ul>
+</div>
+<div class="bodycontent">
 <h3>About SFSiren.net</h3>
 
 <p>
@@ -23,6 +31,6 @@ This site is not officially offiliated by with SF ACS or SF DEM. It is offered l
 -dan
 </p>
 
-
+</div> <!-- end of class=bodycontent>
 </body>
 </html>
