@@ -1,4 +1,6 @@
 <!DOCTYPE html >
+<link rel="stylesheet" type="text/css" href="sirens.css">
+
 <!-- Based on this example: https://developers.google.com/maps/documentation/javascript/mysql-to-maps -->
   <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
@@ -8,29 +10,37 @@
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
       #map {
-        height: 60%;
-        width:  50%;
+        /*height: 60%;
+        width:  50%;*/
+        height: 500px;
+        width: 500px;
       }
       /* Optional: Makes the sample page fill the window. */
+      /*
       html, body {
         height: 100%;
         margin: 0;
         padding: 0;
       }
+      */
+
     </style>
   </head>
 
   <body>
-    <div id="header">
-        <h1>SFSiren.net</h1>
-        <a href="./checkins.php">Checkins</a>
-        <a href="./leaderboard.php">Leaderboard</a>
-        <a href="./view_sirens.php">Siren List</a>
-        <a href="./maps.php">User Summary</a>
-        <a href="./about.php">About</a>
-        <hr>
-    </div>
-    <div id="controller">
+    <div class="pagetitle">
+      <h1>SFSiren.net</h1>
+      </div>
+      <div class="nav_menu">
+          <ul>
+          <li><a href="./checkins.php">Checkins</a></li>
+          <li><a href="./leaderboard.php">Leaderboard</a></li>
+          <li><a href="./view_sirens.php">Siren List</a></li>
+          <li><a href="./maps.php">User Summary</a></li>
+          <li><a href="./about.php">About</a></li>
+          </ul>
+      </div>
+    <div class="bodycontent">
     <h3>User Summary</h3>
     <form action="maps.php" method="get" border=1>
      Callsign:<input type="text" name="callsign">
@@ -39,8 +49,8 @@
     </form>
     <p>
     Green = Checked in by this callsign, Yellow = Checked in by someone, Red = Checked in by nobody.
-    </div>
-    <div id="map"></div>
+    
+    <div id="map">
 
     <script>
       var customLabel = {
@@ -165,7 +175,7 @@
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAtRIxwlNll1t441LlLKtSGZP2zCerjWgc&callback=initMap">
     </script>
-
+    </div> <!-- End of id=map-->
     <?php
 
         $mytimestamp = date('Y-m-d H:i:s');
@@ -240,40 +250,9 @@
         //mysqli_close($conn);
 
         ?>
+        </div> <!-- End class=bodycontent-->
   </body>
 </html>
 
 
-
-
-
-
-<!--html>
-<title>Siren Report</title>
-<body>
-<a href="./checkins.php">Checkins</a>
-<a href="./leaderboard.php">Leaderboard</a>
-<a href="./view_sirens.php">Siren List</a>
-<a href="./user.php">User Summary</a>
-<a href="./siren.php">Siren</a>
-<a href="./hello.php">Hello</a>
-<?php
-
-require('phpsqlsearch_dbinfo.php');
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-    die('Connection failed: ' . $conn->connect_error);
-} /*else {
-	echo "<p>DB seems to be working as user: $username.</p>";
-} */
-
-
-?>
-
-
-</body>
-</html-->
 
