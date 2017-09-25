@@ -30,6 +30,12 @@ This site is not officially offiliated by with SF ACS or SF DEM. It is offered l
 <p>
 -dan
 </p>
+<p>
+    <ul>
+        <li><a href="http://sfdem.org/sites/default/files/FileCenter/Documents/2851-OPWS%2020150205%20letter.pdf">2015 PDF Siren Map</a></li>
+        <li><a href="http://sfdem.org/sites/default/files/FileCenter/Documents/1174-OPWS%20Siren%20Location%20List%202012%20Oct.pdf">2012 PDF Siren List<a></li>
+    </ul>
+</p>
 
 </div> <!-- end of class=bodycontent>
 </body>
