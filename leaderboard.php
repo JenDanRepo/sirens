@@ -23,11 +23,13 @@
 </div>
     <div class="bodycontent">
 
-        <h3>Leaderboard</h3>
+        <h2>Leaderboard</h2>
+        <small>
         <?php
             $mytimestamp = date('Y-m-d H:i:s');
-            echo "As of $mytimestamp<br>";
+            echo "As of $mytimestamp";
         ?>
+        </small>
 
         <div class="comtainer">
             <div class="row">
