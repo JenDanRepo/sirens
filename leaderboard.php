@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<link rel="stylesheet" type="text/css" href="sirens.css">
+
 <html>
  <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="sirens.css">
     <title>Siren Net Leaderboard</title>
  </head>
 <body>
@@ -31,9 +32,10 @@
         ?>
         </small>
 
-        <div class="comtainer">
+        <div class="comtainer-fluid">
             <div class="row">
-                <div class="col">
+                <div class="col-lg-2"></div>
+                <div class="col-md-6 col-lg-4 ">
                     <h2 class="text-center">
                         Most sirens checked in
                     </h2>
@@ -77,7 +79,7 @@
 
                     ?>
                 </div> <!--End of class col-->
-                <div class="col">
+                <div class="col-lg-4 col-md-6">
                     <h2 class="text-center">
                         Different sirens checked
                     </h2>
