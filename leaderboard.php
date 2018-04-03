@@ -2,13 +2,15 @@
 <link rel="stylesheet" type="text/css" href="sirens.css">
 <html>
  <head>
-  <title>Siren Net Leaderboard</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Siren Net Leaderboard</title>
  </head>
 <body>
 
 <div class="pagetitle">
-<h1>SFSiren.net</h1>
+    <h1>SFSiren.net</h1>
 </div>
 <div class="nav_menu">
     <ul>
@@ -19,41 +21,55 @@
     <li><a href="./about.php">About</a></li>
     </ul>
 </div>
-<div class="bodycontent">
+    <div class="bodycontent">
 
-<h3>Leaderboard</h3>
+        <h3>Leaderboard</h3>
 
-<?php
-$mytimestamp = date('Y-m-d H:i:s');
-echo "As of $mytimestamp<br>";
+        <?php
+        $mytimestamp = date('Y-m-d H:i:s');
+        echo "As of $mytimestamp<br>";
 
-require('phpsqlsearch_dbinfo.php');
-require('php_siren_lib.php');
+        require('phpsqlsearch_dbinfo.php');
+        require('php_siren_lib.php');
 
-$pdostring = 'mysql:host=' . $servername .';dbname=' . $dbname .';charset=utf8mb4';
+        $pdostring = 'mysql:host=' . $servername .';dbname=' . $dbname .';charset=utf8mb4';
 
-$db = new PDO($pdostring, $username, $password);
-$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-$db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+        $db = new PDO($pdostring, $username, $password);
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 
-$stmt = $db->query('select callsign, count(*) as c FROM Checkins GROUP BY callsign ORDER BY c desc');
-$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt = $db->query('select callsign, count(*) as c FROM Checkins GROUP BY callsign ORDER BY c desc');
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-echo "<table border=1>";
-echo "<th>Callsign</th> <th>Name</th> <th>Number of Checkins</th>";
+        // Table Head for sirens!
+        echo '<table class="table table-sm">';
+        echo '<thead class="thead-dark">
+                <tr>
+                    <th>Rank</th>
+                    <th>Callsign</th>
+                    <th>Name</th>
+                    <th>Number of Checkins</th>
+                </tr>
+              </thead>';
 
-while ($row = array_shift($results)){
-    $callsign = $row['callsign'];
-    
-    $user = get_user_from_callsign($callsign);
-    $qty = $row['c']; // c stands for "count" or "quantity of checkins"
-    echo "<tr><td><a href=\"./maps.php?callsign=$callsign\">$callsign</a></td> <td>$user</td> <td>$qty</td></tr>";
-} 
+        // Table Rows!
+        $rank = 1;
+        while ($row = array_shift($results)){
+            $callsign = $row['callsign'];
+            
+            $user = get_user_from_callsign($callsign);
+            $qty = $row['c']; // c stands for "count" or "quantity of checkins"
+            echo "<tr><td>$rank</td><td><a href=\"./maps.php?callsign=$callsign\">$callsign</a></td> <td>$user</td> <td>$qty</td></tr>";
+            $rank++;
+        } 
 
-echo "</table>";
+        echo "</table>";
 
-?>
+        ?>
 
-</div> <!--End of class=bodycontent -->
+    </div> <!--End of class=bodycontent -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>
