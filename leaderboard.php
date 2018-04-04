@@ -75,7 +75,7 @@
                         // require('phpsqlsearch_dbinfo.php');
                         // require('php_siren_lib.php');
 
-                        echo "<tbody>";
+                        //echo "<tbody>";
                         $pdostring = 'mysql:host=' . $servername .';dbname=' . $dbname .';charset=utf8mb4';
 
                         $db = new PDO($pdostring, $username, $password);

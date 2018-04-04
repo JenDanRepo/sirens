@@ -1,11 +1,8 @@
-<!DOCTYPE html >
-<link rel="stylesheet" type="text/css" href="sirens.css">
+<?php
+    require('sirens_template.php');
+    sirenHeader();
+?>
 
-<!-- Based on this example: https://developers.google.com/maps/documentation/javascript/mysql-to-maps -->
-  <head>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-    <title>User Page</title>
     <style>
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
@@ -25,22 +22,6 @@
       */
 
     </style>
-  </head>
-
-  <body>
-    <div class="pagetitle">
-      <h1>SFSiren.net</h1>
-      </div>
-      <div class="nav_menu">
-          <ul>
-          <li><a href="./checkins.php">Checkins</a></li>
-          <li><a href="./leaderboard.php">Leaderboard</a></li>
-          <li><a href="./view_sirens.php">Siren List</a></li>
-          <li><a href="./maps.php">User Summary</a></li>
-          <li><a href="./about.php">About</a></li>
-          </ul>
-      </div>
-    <div class="bodycontent">
     <h3>User Summary</h3>
     <form action="maps.php" method="get" border=1>
      Callsign:<input type="text" name="callsign">
@@ -250,9 +231,6 @@
         //mysqli_close($conn);
 
         ?>
-        </div> <!-- End class=bodycontent-->
-  </body>
-</html>
-
-
-
+        <?php
+    sirenFooter();
+?>
