@@ -37,7 +37,7 @@
                 <div class="col-lg-2"></div>
                 <div class="col-md-6 col-lg-4 ">
                     <h2 class="text-center">
-                        Most sirens checked in
+                        Most Sirens
                     </h2>
                     <?php
 
@@ -81,7 +81,7 @@
                 </div> <!--End of class col-->
                 <div class="col-lg-4 col-md-6">
                     <h2 class="text-center">
-                        Different sirens checked
+                        Unique Sirens
                     </h2>
                     <?php
                         echo '<table class="table table-sm">';
