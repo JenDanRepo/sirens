@@ -1,2 +1,9 @@
 phpsqlsearch_dbinfo.php
 config.php
+.htaccess
+tests/
+pdo.php
+mapmarkers2.xml
+favicon.pnp
+favicon.gif
+.well-known/
