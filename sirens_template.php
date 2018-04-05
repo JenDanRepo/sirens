@@ -2,31 +2,36 @@
 	
 	function sirenHeader($title){
 
-		echo '<!DOCTYPE html>
+		$pageTitle = "SFSiren.net";
+		if ($title != empty($title)){
+			$pageTitle = $pageTitle . " - " . $title;
+		}
+
+		echo "<!DOCTYPE html>
 							<html>
 							 <head>
-							    <meta charset="utf-8">
-							    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-							    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-							    <link rel="stylesheet" type="text/css" href="sirens.css">
-							    <title>Siren Net Leaderboard</title>
+							    <meta charset=\"utf-8\">
+							    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">
+							    <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css\" integrity=\"sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm\" crossorigin=\"anonymous\">
+							    <link rel=\"stylesheet\" type=\"text/css\" href=\"sirens.css\">
+							    <title>Siren Net $title</title>
 							 </head>
 							<body>
 
-							<div class="pagetitle">
-							    <h1>SFSiren.net</h1>
+							<div class=\"pagetitle\">
+							    <h1>$pageTitle</h1>
 							</div>
-							<div class="nav_menu">
+							<div class=\"nav_menu\">
 							    <ul>
-							    <li><a href="./checkins.php">Checkins</a></li>
-							    <li><a href="./leaderboard.php">Leaderboard</a></li>
-							    <li><a href="./view_sirens.php">Siren List</a></li>
-							    <li><a href="./maps.php">User Summary</a></li>
-							    <li><a href="./about.php">About</a></li>
+							    <li><a href=\"./checkins.php\">Checkins</a></li>
+							    <li><a href=\"./leaderboard.php\">Leaderboard</a></li>
+							    <li><a href=\"./view_sirens.php\">Siren List</a></li>
+							    <li><a href=\"./maps.php\">User Summary</a></li>
+							    <li><a href=\"./about.php\">About</a></li>
 							    </ul>
 							</div>
-							    <div class="bodycontent">
-    ';
+							    <div class=\"bodycontent\">
+    ";
 	}
 
 	function sirenFooter(){

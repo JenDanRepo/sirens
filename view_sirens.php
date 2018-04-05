@@ -1,6 +1,6 @@
 <?php
     require('sirens_template.php');
-    sirenHeader();
+    sirenHeader("Siren List");
 ?>
 
 <?php

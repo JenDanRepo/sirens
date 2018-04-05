@@ -1,9 +1,8 @@
 <?php
     require('sirens_template.php');
-    sirenHeader();
+    sirenHeader("Leaderboard");
 ?>
 
-        <h2>Leaderboard</h2>
         <small>
         <?php
             $mytimestamp = date('Y-m-d H:i:s');

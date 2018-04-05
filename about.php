@@ -1,6 +1,6 @@
 <?php
     require('sirens_template.php');
-    sirenHeader();
+    sirenHeader("About");
 ?>
 <h3>About SFSiren.net</h3>
 
