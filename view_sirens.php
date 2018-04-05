@@ -1,23 +1,8 @@
-<!DOCTYPE html>
-<link rel="stylesheet" type="text/css" href="sirens.css">
-<html>
- <head>
-  <title>PHP Test</title>
- </head>
-<body>
-<div class="pagetitle">
-<h1>SFSiren.net</h1>
-</div>
-<div class="nav_menu">
-    <ul>
-    <li><a href="./checkins.php">Checkins</a></li>
-    <li><a href="./leaderboard.php">Leaderboard</a></li>
-    <li><a href="./view_sirens.php">Siren List</a></li>
-    <li><a href="./maps.php">User Summary</a></li>
-    <li><a href="./about.php">About</a></li>
-    </ul>
-</div>
-<div class="bodycontent">
+<?php
+    require('sirens_template.php');
+    sirenHeader("Siren List");
+?>
+
 <?php
 
 $mytimestamp = date('Y-m-d H:i:s');
@@ -98,7 +83,6 @@ echo "</table>";
 //mysqli_close($conn);
 
 ?>
-</div> <!-- End of class=bodycontent -->
-
-</body>
-</html>
+<?php
+    sirenFooter();
+?>
