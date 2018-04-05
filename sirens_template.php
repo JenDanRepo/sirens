@@ -3,7 +3,7 @@
 	function sirenHeader($title){
 
 		$pageTitle = "SFSiren.net";
-		if ($title != empty($title)){
+		if (!empty($title)){
 			$pageTitle = $pageTitle . " - " . $title;
 		}
 

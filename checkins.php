@@ -29,6 +29,13 @@ $mytimestamp = date('Y-m-d H:i:s');
                         </div>
                     </div>
 
+                    <div class="form-group row">
+                        <label for="inputLocation" class="col-lg-4 col-form-label">Location</label>
+                        <div class="col-lg-6">
+                            <input type="text" name="location" placeholder="location" id="inputLocation" class="form-control">
+                        </div>
+                    </div>
+
 
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="insideout" id="inlineRadio1" value="outdoor" checked>
@@ -63,7 +70,7 @@ $mytimestamp = date('Y-m-d H:i:s');
                             <input type="text" name="voicequality" value="Loud & Clear" id="inputVoiceQuality" class="form-control">
                         </div>
                     </div>
-                    <input type="submit" class="btn btn-primary"/>
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
             </div>
         </form>
