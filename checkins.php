@@ -8,71 +8,101 @@ $mytimestamp = date('Y-m-d H:i:s');
 // echo "<p>As of $mytimestamp<br>";
 ?>
 
-<div class="row">
     <div class="col-lg-2">
       <h4>Add a checkin</h4>
     </div>
-    <div class="col-lg-3">
-        <form action="add_checkin.php" method="post" class="border border-primary rounded" style="padding: 4px;">
+<div class="row">
+    <div class="container">
+        <form action="add_checkin.php" method="post" class="border rounded" style="padding: 4px;">
             <div class="row">
-                <div class="col-lg-12">
-                    <div class="form-group row">
-                        <label for="inputCallsign" class="col-lg-4 col-form-label">Callsign</label>
-                        <div class="col-lg-6">
-                            <input type="text" name="callsign" placeholder="callsign" id="inputCallsign" class="form-control">
-                        </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="form-group">
+                        <label for="inputCallsign" class="col-form-label">Callsign</label>
+                        <input type="text" name="callsign" placeholder="callsign" id="inputCallsign" class="form-control">
                     </div>
-                    <div class="form-group row">
-                        <label for="inputUser" class="col-lg-4 col-form-label">User</label>
-                        <div class="col-lg-6">
-                            <input type="text" name="user" placeholder="user" id="inputUser" class="form-control">
-                        </div>
+                 </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="form-group">
+                        <label for="inputUser" class="col-form-label">User</label>
+                        <input type="text" name="user" placeholder="user" id="inputUser" class="form-control">
                     </div>
-
-                    <div class="form-group row">
-                        <label for="inputLocation" class="col-lg-4 col-form-label">Location</label>
-                        <div class="col-lg-6">
-                            <input type="text" name="location" placeholder="location" id="inputLocation" class="form-control">
-                        </div>
-                    </div>
-
-
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="insideout" id="inlineRadio1" value="outdoor" checked>
-                        <label class="form-check-label" for="inlineRadio1">Outdoor</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="insideout" id="inlineRadio2" value="indoor">
-                        <label class="form-check-label" for="inlineRadio2">Indoor</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="insideout" id="inlineRadio3" value="unknown">
-                        <label class="form-check-label" for="inlineRadio3">Unknown</label>
-                    </div>
-
-
-
-                    <div class="form-group row">
-                        <label for="inputSiren" class="col-lg-4 col-form-label">Siren</label>
-                        <div class="col-lg-6">
-                            <input type="text" name="siren" placeholder="00" id="inputSiren" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="inputToneQuality" class="col-lg-4 col-form-label">Tone Quality</label>
-                        <div class="col-lg-6">
-                            <input type="text" name="tonequality" value="Loud & Clear" id="inputToneQuality" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="inputVoiceQuality" class="col-lg-4 col-form-label">Voice Quality</label>
-                        <div class="col-lg-6">
-                            <input type="text" name="voicequality" value="Loud & Clear" id="inputVoiceQuality" class="form-control">
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div class="form-group">
+                        <label for="inputLocation" class="col-form-label">Location</label>
+                        <input type="text" name="location" placeholder="location" id="inputLocation" class="form-control">
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 align-text-bottom">
+                    <!-- <span class="align-text-bottom">       -->
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="insideout" id="inlineRadio1" value="outdoor" checked>
+                            <label class="form-check-label" for="inlineRadio1">Outdoor</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="insideout" id="inlineRadio2" value="indoor">
+                            <label class="form-check-label" for="inlineRadio2">Indoor</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="insideout" id="inlineRadio3" value="unknown">
+                            <label class="form-check-label" for="inlineRadio3">Unknown</label>
+                        </div>
+                    <!-- </span> -->
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label for="inputSiren" class="col-form-label">Siren</label>
+                        <input type="text" name="siren" placeholder="number" id="inputSiren" class="form-control">
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="form-group">
+                        <label for="inputToneQuality" class="col-form-label">Tone Quality</label>
+                        <input type="text" name="tonequality" value="Loud & Clear" id="inputToneQuality" class="form-control">
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="form-group">
+                        <label for="inputToneQuality" class="col-form-label">Tone Quality</label>
+                        <input type="text" name="tonequality" value="Loud & Clear" id="inputToneQuality" class="form-control">
+                    </div>
+                </div>
+            </div>
+
+
+               <!--  <div class="row">
+                    <div class="col-lg-6 col-md-6">   
+                        <div class="form-group row">
+                            <label for="inputToneQuality" class="col-lg-4 col-form-label">Tone Quality</label>
+                            <div class="col-lg-6">
+                                <input type="text" name="tonequality" value="Loud & Clear" id="inputToneQuality" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <div class="form-group row">
+                            <label for="inputVoiceQuality" class="col-lg-4 col-form-label">Voice Quality</label>
+                            <div class="col-lg-6">
+                                <input type="text" name="voicequality" value="Loud & Clear" id="inputVoiceQuality" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+                            
+                        </div>
+                    </div>
+                </div>
         </form>
     </div>
 </div>
