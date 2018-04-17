@@ -70,8 +70,8 @@ $mytimestamp = date('Y-m-d H:i:s');
                 </div>
                 <div class="col-lg-5">
                     <div class="form-group">
-                        <label for="inputToneQuality" class="col-form-label">Tone Quality</label>
-                        <input type="text" name="tonequality" value="Loud & Clear" id="inputToneQuality" class="form-control">
+                        <label for="inputVoiceQuality" class="col-form-label">Voice Quality</label>
+                        <input type="text" name="voicequality" value="Loud & Clear" id="inputVoiceQuality" class="form-control">
                     </div>
                 </div>
             </div>
