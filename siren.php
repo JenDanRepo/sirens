@@ -1,6 +1,6 @@
 <?php
     require('sirens_template.php');
-    sirenHeader("Siren Details");
+    sirenHeader("Siren " . $_GET['number'] . " Details");
 ?>
 <?php
 
@@ -20,7 +20,7 @@ $siren_number = mysqli_real_escape_string($conn, $_GET['number']);
 echo "<h2>Detail for Siren $siren_number</h2>";
 
 $mytimestamp = date('Y-m-d H:i:s');
-echo "Timestamp is: $mytimestamp<br>";
+echo "<!--Timestamp is: $mytimestamp<br>-->";
 
 if ($siren_number == ""){
 
@@ -29,9 +29,10 @@ if ($siren_number == ""){
     $sql = "SELECT * FROM Sirens" or die(mysqli_error());
     $result = $conn->query($sql);
 
+        echo '<table class="table table-sm">';
+        echo '<thead>';
+        echo '<tr class="thead-dark">';
         echo "
-        <table border=1>
-        <tr>
         <th>number</th>
         <th>name</th>
         <th>language</th>
@@ -43,6 +44,8 @@ if ($siren_number == ""){
         <th>lng</th>
         </tr>
         ";
+        echo '</thead>';
+        echo '<tbody>';
 
         while($row = mysqli_fetch_array($result)) {
             $id = $row['id'];
@@ -70,6 +73,7 @@ if ($siren_number == ""){
             echo "</tr>";
         } 
 
+        echo "</tbody>";
         echo "</table>";
 
         mysqli_close($conn);
@@ -104,6 +108,15 @@ while($row = mysqli_fetch_array($result)) {
     $lng = $row['lng'];
 
     $siren_string = "<table>";
+    $siren_string = '<table class="table table-sm">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Siren Info
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                    ';
     $siren_string = $siren_string . "<tr><td>Number: $number</td>";
     $siren_string = $siren_string . "<tr><td>Name: $name</td>";
     $siren_string = $siren_string . "<tr><td>Language: $language</td>";
@@ -113,15 +126,15 @@ while($row = mysqli_fetch_array($result)) {
     $siren_string = $siren_string . "<tr><td>Zip: $zip</td>";
     $siren_string = $siren_string . "<tr><td>Lat: $lat</td>";
     $siren_string = $siren_string . "<tr><td>Long: $lng</td>";
-    $siren_string = $siren_string . "</table>";
+    $siren_string = $siren_string . "</tbody>
+                                    </table>";
 }
 
-echo "<h3>Info</h3>";
 echo $siren_string;
 
 // Siren Leaderboard
 
-echo "<h3>Siren Check-in Leaders</h3>";
+echo "<h3>Check-in Leaders</h3>";
 
 $user = "";
 
@@ -129,8 +142,10 @@ $sql = "SELECT callsign, COUNT(*) AS magnitude FROM Checkins WHERE siren = \"$si
 
 $result = $conn->query($sql);
 
-$leadstring = "<table border=1>";
+$leadstring = '<table class="table table-sm">';
+$leadstring = $leadstring . '<thead class="thead-dark">';
 $leadstring = $leadstring . "<tr><th>Callsign</th><th>Name</th><th>Check-ins</th>";
+$leadstring = $leadstring . '</thead>';
 while($row = mysqli_fetch_array($result)) {
     $callsign = $row['callsign'];
     $magnitude = $row['magnitude'];
@@ -155,7 +170,7 @@ echo $leadstring;
 // End Siren Leaderboard
 
 
-echo "<h3>Siren $siren_number Check-ins:</h3>";
+echo "<h3>Check-ins:</h3>";
 
 $sql = "SELECT * FROM Checkins WHERE siren=\"$siren_number\" ORDER BY entry_time DESC";
 $result = $conn->query($sql);
@@ -189,9 +204,14 @@ while($row = mysqli_fetch_array($result)) {
 
 echo "Checkins: $counter";
 echo "<br><br>";
-echo "<table border=1>";
+echo '<table class="table table-sm">';
+        echo '<thead>';
+        echo '<tr class="thead-dark">';
 echo "<th>Time</th> <th>User</th> <th>Callsign</th> <th>Siren</th> <th>Location</th> <th>Tone Quality</th> <th>Voice Quality</th> <th>Inside/Outside</th>";
+echo "</thead>";
+echo '<tbody>';
 echo "$datastring";
+echo '</tbody>';
 echo "</table>";
 
 

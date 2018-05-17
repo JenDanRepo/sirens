@@ -35,20 +35,22 @@ echo "
 ";
 
 
-echo "
-<table border=1>
-<tr>
-<th>number</th>
-<th>name</th>
-<th>language</th>
-<th>address</th>
-<th>city</th>
-<th>state</th>
-<th>zip</th>
-<th>lat</th>
-<th>lng</th>
+echo '<table class="table table-sm">';
+echo '<thead>';
+echo '<tr class="thead-dark">
+<th>Number</th>
+<th>Name</th>
+<th>Language</th>
+<th>Address</th>
+<th>City</th>
+<th>State</th>
+<th>Zip</th>
+<th>Lat</th>
+<th>Lng</th>
 </tr>
-";
+';
+echo '</thead>';
+echo '<tbody>';
 
 foreach($db->query('SELECT * FROM Sirens') as $row) {
 //while($row = mysqli_fetch_array($result)) {
@@ -76,7 +78,7 @@ foreach($db->query('SELECT * FROM Sirens') as $row) {
     echo "<td> $lng</td>";
     echo "</tr>";
 } 
-
+echo '</tbody>';
 echo "</table>";
 
 
