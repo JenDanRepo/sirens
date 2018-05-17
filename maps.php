@@ -223,8 +223,11 @@
         echo "<h3>User Summary for $user ($callsign)</h3>";
         echo "Checkins: $counter";
         echo "<br><br>";
-        echo "<table>";
+        echo '<table class="table table-sm">';
+        echo '<thead class="thead-dark">';
+        echo '<tr>';
         echo "<th>Time</th> <th>Siren</th> <th>Siren Location</th> <th>Reported Location</th> <th>Tone Quality</th> <th>Voice Quality</th> <th>Inside/Outside</th>";
+        echo '<tr>';
         echo "$datastring";
         echo "</table>";
 
