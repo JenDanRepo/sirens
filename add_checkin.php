@@ -25,7 +25,7 @@ if ($conn->connect_error) {
 // Form that submits to this script is in add_checkin.php
 
 $user = mysqli_real_escape_string($conn, $_POST['user']);
-$callsign = mysqli_real_escape_string($conn, $_POST['callsign']);
+$callsign = strtoupper(mysqli_real_escape_string($conn, $_POST['callsign']));
 $siren = mysqli_real_escape_string($conn, $_POST['siren']);
 $location = mysqli_real_escape_string($conn, $_POST['location']);
 $tonequality = mysqli_real_escape_string($conn, $_POST['tonequality']);

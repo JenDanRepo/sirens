@@ -100,6 +100,7 @@
             var xml = data.responseXML;
             var markers = xml.documentElement.getElementsByTagName('marker');
             Array.prototype.forEach.call(markers, function(markerElem) {
+              var sirenId = markerElem.getAttribute('id');
               var name = markerElem.getAttribute('name');
               var address = markerElem.getAttribute('address');
               var type = markerElem.getAttribute('type');
@@ -116,14 +117,17 @@
               var text = document.createElement('text');
               text.textContent = address
               infowincontent.appendChild(text);
-              var icon = customLabel[type] || {};
+              // var icon = customLabel[type] || {};
+              // var icon = markerElem.getAttribute('id') || {};
+              var icon = sirenId;
               var foo = customColor[type] || {};
               var marker = new google.maps.Marker({
                 map: map,
                 position: point,
                 icon: pinSymbol(foo.mycolor),
                 //icon: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png',
-                label: icon.label
+                // label: icon.label
+                label: icon
               });
               marker.addListener('click', function() {
                 infoWindow.setContent(infowincontent);
