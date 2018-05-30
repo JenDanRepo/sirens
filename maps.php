@@ -213,7 +213,9 @@ Green = Checked in by this callsign, Yellow = Checked in by someone, Red = Check
             $voicequality = $row['voicequality'];
             $insideout = $row['insideout'];
 
-            $datastring = $datastring."<tr><td>$entry_time</td> <td>$siren</td> <td>Siren Location</td> <td>$location</td> <td>$tonequality</td> <td>$voicequality</td><td>$insideout</td></tr>";
+            // $datastring = $datastring."<tr><td>$entry_time</td> <td>$siren</td> <td>Siren Location</td> <td>$location</td> <td>$tonequality</td> <td>$voicequality</td><td>$insideout</td></tr>";
+            // $datastring = $datastring."<tr><td>$entry_time</td> <td>$siren</td> <td>$location</td> <td>$tonequality</td> <td>$voicequality</td><td>$insideout</td></tr>";
+            $datastring = $datastring. "<tr><td>$entry_time</td> <td><a href=\"siren.php?number=" . $siren . "\">$siren</a></td> <td>$location</td> <td>$tonequality</td> <td>$voicequality</td><td>$insideout</td></tr>";
         } 
 
         echo "<h3>User Summary for $user ($callsign)</h3>";
@@ -222,7 +224,9 @@ Green = Checked in by this callsign, Yellow = Checked in by someone, Red = Check
         echo '<table class="table table-sm">';
         echo '<thead class="thead-dark">';
         echo '<tr>';
-        echo "<th>Time</th> <th>Siren</th> <th>Siren Location</th> <th>Reported Location</th> <th>Tone Quality</th> <th>Voice Quality</th> <th>Inside/Outside</th>";
+        // echo "<th>Time</th> <th>Siren</th> <th>Siren Location</th> <th>Reported Location</th> <th>Tone Quality</th> <th>Voice Quality</th> <th>Inside/Outside</th>";
+        echo "<th>Time</th> <th>Siren</th> <th>Reported Location</th> <th>Tone Quality</th> <th>Voice Quality</th> <th>Inside/Outside</th>";
+
         echo '<tr>';
         echo "$datastring";
         echo "</table>";
