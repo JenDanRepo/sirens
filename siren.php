@@ -158,7 +158,7 @@ while($row = mysqli_fetch_array($result)) {
     $user= $user_row['user'];
 
     $leadstring = $leadstring . "<tr>";
-    $leadstring = $leadstring . "<td><a href=\"./user.php?callsign=$callsign\">$callsign</a></td>";
+    $leadstring = $leadstring . "<td><a href=\"./maps.php?callsign=$callsign\">$callsign</a></td>";
     $leadstring = $leadstring . "<td>$user</td>";
     $leadstring = $leadstring . "<td>$magnitude</td>";
     $leadstring = $leadstring . "</tr>";
@@ -199,7 +199,7 @@ while($row = mysqli_fetch_array($result)) {
     $user= $user_row['user'];
 
 
-    $datastring = $datastring."<tr><td>$entry_time</td> <td>$user</td> <td><a href=\"./user.php?callsign=$callsign\">$callsign</a></td> <td>$siren<br></td> <td>$location</td> <td>$tonequality</td> <td>$voicequality</td><td>$insideout</td></tr>";
+    $datastring = $datastring."<tr><td>$entry_time</td> <td>$user</td> <td><a href=\"./maps.php?callsign=$callsign\">$callsign</a></td> <td>$siren<br></td> <td>$location</td> <td>$tonequality</td> <td>$voicequality</td><td>$insideout</td></tr>";
 } 
 
 echo "Checkins: $counter";
