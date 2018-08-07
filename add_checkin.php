@@ -6,12 +6,10 @@ $mytimestamp = date('Y-m-d H:i:s');
 require('phpsqlsearch_dbinfo.php');
 //echo "loaded phpsqlsearch_dbinfo.php";
 
-if($LS->isLoggedIn()){
-      echo "You are logged in. <a href='home.php'>Home</a>";
-} else{
-      echo "You are not logged in. <a href='login.php'>Log In</a>";
-	exit;
-	}
+if ($LS->isLoggedIn() != 1){
+    header('Location: http://sfsiren.net/login.php');
+    die();
+} 
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -45,8 +43,8 @@ $sql="INSERT INTO Checkins (user, callsign, siren, location, tonequality, voiceq
 //echo "SQL Statement: $sql<br><br>";
 
 if (mysqli_query($conn, $sql)) {
-    //header('Location: checkins.php');
-    //exit;
+    // header('Location: http://sfsiren.net/checkins.php');
+    // die();
     echo "New record created successfully";
     echo "Back to <a href=\"./checkins.php\">Checkins Page</a>";
 } else {

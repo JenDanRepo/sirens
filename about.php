@@ -29,7 +29,19 @@
     <ul>
         <li><a href="http://sfdem.org/sites/default/files/FileCenter/Documents/2851-OPWS%2020150205%20letter.pdf">2015 PDF Siren Map</a></li>
         <li><a href="http://sfdem.org/sites/default/files/FileCenter/Documents/1174-OPWS%20Siren%20Location%20List%202012%20Oct.pdf">2012 PDF Siren List<a></li>
+        <li><a href="https://drive.google.com/open?id=15r3FQk78LViQYE2N537Gxky_-UY&usp=sharing">Google Map of Sirens</a></li>
     </ul>
+</p>
+<h3>Information About Siren Net</h3>
+<p>
+    The net uses the W6TP repeater compliments of the George S Ladd Telephone Pioneers. It occures at 11:55am (for the preamble) and then resumes at noon after the sirens have sounded on the 1st, 3rd, and 5th Tuesday of the month. The W6TP repeater is located near the intersection of Market and First Streets. It is very diffuclt to get the repeater in the shadow of Twin Peaks roughly from the SF Zoo to the Beach Chalet.
+
+    <h5>Frequencies for the Siren Net</h5>
+    <ul>
+        <li>146.790/- tone 114.8 (VHF - 2 meter</li>
+        <li>443.100/+ DCS 114 (UHF - 70cm)</li>
+    </ul>
+
 </p>
 
 <?php
