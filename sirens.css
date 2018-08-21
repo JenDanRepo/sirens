@@ -45,6 +45,15 @@ h1{
 }
 */
 
+div.logout_footer {
+	display: block;
+	text-align: right;
+}
+.logout_footer a {
+	text-align: right;
+	color: white;
+}
+
 .nav_menu li{
     float: left;
     border-right: 1px solid #bbb;
