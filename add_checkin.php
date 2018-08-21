@@ -43,8 +43,9 @@ $sql="INSERT INTO Checkins (user, callsign, siren, location, tonequality, voiceq
 //echo "SQL Statement: $sql<br><br>";
 
 if (mysqli_query($conn, $sql)) {
+    header('Location: checkins.php');
     // header('Location: http://sfsiren.net/checkins.php');
-    // die();
+    die();
     echo "New record created successfully";
     echo "Back to <a href=\"./checkins.php\">Checkins Page</a>";
 } else {
