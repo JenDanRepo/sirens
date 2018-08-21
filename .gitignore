@@ -1,5 +1,5 @@
 phpsqlsearch_dbinfo.php
-config.php
+#config.php
 .htaccess
 tests/
 pdo.php
