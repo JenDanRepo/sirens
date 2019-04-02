@@ -30,6 +30,7 @@
         <li><a href="http://sfdem.org/sites/default/files/FileCenter/Documents/2851-OPWS%2020150205%20letter.pdf">2015 PDF Siren Map</a></li>
         <li><a href="http://sfdem.org/sites/default/files/FileCenter/Documents/1174-OPWS%20Siren%20Location%20List%202012%20Oct.pdf">2012 PDF Siren List<a></li>
         <li><a href="https://drive.google.com/open?id=15r3FQk78LViQYE2N537Gxky_-UY&usp=sharing">Google Map of Sirens</a></li>
+	<li><a href="https://sfdem.org/sites/default/files/Siren%20Net%20Script%20Rev%20011018.pdf">Siren Net Script</a></li>
         <li><a href="https://callook.info/">Callsign lookup</a></li>
     </ul>
 </p>
