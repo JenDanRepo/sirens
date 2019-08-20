@@ -22,15 +22,52 @@
   */
 
 </style>
+<?php
+  $netdate = $_GET['netdate'];
+  echo "<h3>Summary of $netdate</h3>";
 
-<h3><!-- User --> Summary</h3>
-<form action="maps.php" method="get" border=1>
-  Callsign:<input type="text" name="callsign">
-  <input type="submit">
-  <br>
-</form>
+  require('phpsqlsearch_dbinfo.php');
+  require('php_siren_lib.php');
+
+  
+  if($netdate == ""){
+    echo "Display a list of nets";
+    $pdostring = 'mysql:host=' . $servername .';dbname=' . $dbname .';charset=utf8mb4';
+    $db = new PDO($pdostring, $username, $password);
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+
+    $sql = "SELECT Nets.control_callsign AS netcontrol, Nets.net_date AS netdate, ? as foo FROM Nets";
+
+    $stmt = $db->prepare($sql);
+    $stmt->execute(['a']);
+    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    echo '<table class="table table-sm">'
+          . '<thead class="thead-dark">'
+          . "<tr>"
+            . "<th>Date</th>"
+            . "<th>Net Control</th>"
+          . "</tr>"
+          . '</thead>'
+          ;
+    while ($row = array_shift($rows)){
+      $netdate = $row['netdate'];
+      $netcontrol = $row['netcontrol'];
+
+      echo '<tr>'
+              . "<td> <a href=\"nets.php?netdate=$netdate\"> $netdate </a> </td>"
+              . "<td> $netcontrol </td>"
+            . '</tr>';
+    }
+    echo "</table>";
+
+    sirenFooter();
+  }
+?>
+
 <p>
-Green = Checked in by this callsign, Yellow = Checked in by someone, Red = Checked in by nobody.
+Green = Checked in during this net, Red = Not checked in during this net.
     
 <div id="map">
 
@@ -55,6 +92,9 @@ Green = Checked in by this callsign, Yellow = Checked in by someone, Red = Check
     },
     unchecked: {
       mycolor: 'red'
+    },
+    person:{
+      mycolor: 'blue'
     }
   };
 
@@ -87,13 +127,13 @@ Green = Checked in by this callsign, Yellow = Checked in by someone, Red = Check
           return decodeURIComponent(name[1]);
     }
 
-    var callsign = getQuery("callsign");
-    var sirenxml = "phpsqlsearch_genxml.php";
+    var netdate = getQuery("netdate");
+    var sirenxml = "phpsqlsearch_genxmlNet.php";
 
-    if (callsign !== ""){
-        sirenxml = sirenxml.concat("?callsign=", callsign);
+    if (netdate !== ""){
+        sirenxml = sirenxml.concat("?netdate=", netdate);
     } else {
-        sirenxml = sirenxml.concat("?callsign=nobody");
+        sirenxml = sirenxml.concat("?netdate=nobody");
     };
 
     // old url: https://storage.googleapis.com/mapsdevsite/json/mapmarkers2.xml
@@ -167,15 +207,13 @@ Green = Checked in by this callsign, Yellow = Checked in by someone, Red = Check
         $mytimestamp = date('Y-m-d H:i:s');
         //echo "Timestamp is: $mytimestamp<br>";
 
-        require('phpsqlsearch_dbinfo.php');
-        require('php_siren_lib.php');
-
         $pdostring = 'mysql:host=' . $servername .';dbname=' . $dbname .';charset=utf8mb4';
         $db = new PDO($pdostring, $username, $password);
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 
         $callsign = $_GET['callsign'];
+
 
         if ($callsign == ""){
             $callsign = "nobody";
@@ -184,18 +222,8 @@ Green = Checked in by this callsign, Yellow = Checked in by someone, Red = Check
 
         $user = get_user_from_callsign($callsign);
         $net = 2;
+        
 
-        // -- $/sql="SELECT * FROM Checkins WHERE callsign=\"$callsign\" ORDER BY apcu_entry(key)_time DESC";
-        $sql="SELECT * FROM Checkins WHERE net=\"$net\" ORDER BY callsign ASC";
-
-        // echo "SQL Statement: $sql<br><br>";
-
-        //$result = $conn->query($sql);
-
-        $counter = 0;
-
-        // $stmt = $db->prepare("SELECT * FROM Checkins WHERE callsign=? ORDER BY entry_time DESC");
-        // $stmt = $db->prepare("SELECT * FROM Checkins WHERE net=? ORDER BY callsign ASC");
         $sql = <<<EOT
         SELECT 
           Checkins.user, 
@@ -221,6 +249,7 @@ EOT;
         $stmt->execute([$net]);
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+        $counter = 0;
         while ($row = array_shift($rows)){
             $counter++;
             $username = $row['user'];
@@ -235,17 +264,17 @@ EOT;
             $siren_name = $row['siren_name'];
 
             $datastring = $datastring. "<tr>"
-                                      ."<td> <a href=\"maps.php?callsign=$callsign\"> $callsign </a> </td>"
-                                      ."<td> $username </td>"
-                                      ."<td><a href=\"siren.php?number=" . $siren . "\">$siren_slug </a></td>"
-                                      ."<td>$location</td>"
-                                      ."<td>$tonequality</td>"
-                                      ."<td>$voicequality</td>"
-                                      ."<td>$insideout</td>"
+                                        ."<td> <a href=\"maps.php?callsign=$callsign\"> $callsign </a> </td>"
+                                        ."<td> $username </td>"
+                                        ."<td><a href=\"siren.php?number=" . $siren . "\">$siren_slug </a></td>"
+                                        ."<td>$location</td>"
+                                        ."<td>$tonequality</td>"
+                                        ."<td>$voicequality</td>"
+                                        ."<td>$insideout</td>"
                                       ."</tr>";
         } 
 
-        echo "<h3>Net Summary for $net</h3>";
+        echo "<h3>Net Summary for $netdate</h3>";
         echo "Siren Checkins: $counter";
         echo "<br><br>";
         echo '<table class="table table-sm">';
