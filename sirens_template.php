@@ -26,6 +26,7 @@
 							    <li><a href=\"./checkins.php\">Checkins</a></li>
 							    <li><a href=\"./leaderboard.php\">Leaderboard</a></li>
 							    <li><a href=\"./view_sirens.php\">Siren List</a></li>
+							    <li><a href=\"./nets.php\">Nets</a></li>
 							    <li><a href=\"./maps.php\">User Summary</a></li>
 							    <li><a href=\"./about.php\">About</a></li>
 							    </ul>

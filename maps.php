@@ -1,6 +1,8 @@
 <?php
   require('sirens_template.php');
   sirenHeader("User Details");
+
+  require('phpsqlsearch_dbinfo.php');
 ?>
 
 <style>
@@ -157,9 +159,15 @@ Green = Checked in by this callsign, Yellow = Checked in by someone, Red = Check
 
   function doNothing() {}
 </script>
-<script async defer
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAtRIxwlNll1t441LlLKtSGZP2zCerjWgc&callback=initMap">
-  </script>
+<?php
+  $api_url = "https://maps.googleapis.com/maps/api/js?&callback=initMap&key=" . $mapsapikey;
+
+  echo <<<EOT
+    <script async defer src="$api_url">
+    </script>
+EOT;
+?>
+
 </div> <!-- End of id=map-->
 
     <?php
@@ -167,7 +175,7 @@ Green = Checked in by this callsign, Yellow = Checked in by someone, Red = Check
         $mytimestamp = date('Y-m-d H:i:s');
         //echo "Timestamp is: $mytimestamp<br>";
 
-        require('phpsqlsearch_dbinfo.php');
+        
         require('php_siren_lib.php');
 
         $pdostring = 'mysql:host=' . $servername .';dbname=' . $dbname .';charset=utf8mb4';
