@@ -31,13 +31,13 @@
 
   
   if($netdate == ""){
-    echo "Display a list of nets";
+    echo "Available Nets";
     $pdostring = 'mysql:host=' . $servername .';dbname=' . $dbname .';charset=utf8mb4';
     $db = new PDO($pdostring, $username, $password);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 
-    $sql = "SELECT Nets.control_callsign AS netcontrol, Nets.net_date AS netdate, ? as foo FROM Nets";
+    $sql = "SELECT Nets.control_callsign AS netcontrol, Nets.net_date AS netdate, ? as foo FROM Nets ORDER BY Nets.net_date DESC";
 
     $stmt = $db->prepare($sql);
     $stmt->execute(['a']);
@@ -63,6 +63,7 @@
     echo "</table>";
 
     sirenFooter();
+    exit();
   }
 ?>
 
@@ -91,7 +92,7 @@ Green = Checked in during this net, Red = Not checked in during this net.
         mycolor: 'yellow'
     },
     unchecked: {
-      mycolor: 'red'
+      mycolor: 'pink'
     },
     person:{
       mycolor: 'blue'
