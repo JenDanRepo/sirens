@@ -22,13 +22,13 @@
   */
 
 </style>
+
 <?php
   $netdate = $_GET['netdate'];
   echo "<h3>Summary of $netdate</h3>";
 
   require('phpsqlsearch_dbinfo.php');
   require('php_siren_lib.php');
-
   
   if($netdate == ""){
     echo "Available Nets";
@@ -198,100 +198,102 @@ Green = Checked in during this net, Red = Not checked in during this net.
 
   function doNothing() {}
 </script>
-<script async defer
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAtRIxwlNll1t441LlLKtSGZP2zCerjWgc&callback=initMap">
-  </script>
+
+<?php
+  $api_url = "https://maps.googleapis.com/maps/api/js?&callback=initMap&key=" . $mapsapikey;
+
+  echo <<<EOT
+    <script async defer src="$api_url">
+    </script>
+EOT;
+?>
+
 </div> <!-- End of id=map-->
 
-    <?php
-
-        $mytimestamp = date('Y-m-d H:i:s');
-        //echo "Timestamp is: $mytimestamp<br>";
-
-        $pdostring = 'mysql:host=' . $servername .';dbname=' . $dbname .';charset=utf8mb4';
-        $db = new PDO($pdostring, $username, $password);
-        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-
-        $callsign = $_GET['callsign'];
-
-
-        if ($callsign == ""){
-            $callsign = "nobody";
-        }
-
-
-        $user = get_user_from_callsign($callsign);
-        $net = 2;
-        
-
-        $sql = <<<EOT
-        SELECT 
-          Checkins.user, 
-          Checkins.entry_time, 
-          Checkins.siren, 
-          CONCAT(Checkins.siren, ' - ', Sirens.`name`) AS 'siren_slug', 
-          Checkins.callsign, 
-          Checkins.location, 
-          Checkins.tonequality, 
-          Checkins.voicequality, 
-          Checkins.insideout, 
-          Checkins.net AS 'net', 
-          Sirens.`NAME` AS 'siren_name' 
-        FROM Checkins
-        LEFT JOIN Sirens 
-          ON Checkins.`siren` = Sirens.`number`
-        WHERE net=? 
-        ORDER BY callsign ASC
-EOT;
-        // echo "SQL Statement: $sql<br><br>";
-        // $stmt->execute(array($callsign));
-        $stmt = $db->prepare($sql);
-        $stmt->execute([$net]);
-        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        $counter = 0;
-        while ($row = array_shift($rows)){
-            $counter++;
-            $username = $row['user'];
-            $entry_time = $row['entry_time'];
-            $siren = $row['siren'];
-            $callsign = $row['callsign'];
-            $location = $row['location'];
-            $tonequality = $row['tonequality'];
-            $voicequality = $row['voicequality'];
-            $insideout = $row['insideout'];
-            $siren_slug = $row['siren_slug'];
-            $siren_name = $row['siren_name'];
-
-            $datastring = $datastring. "<tr>"
-                                        ."<td> <a href=\"maps.php?callsign=$callsign\"> $callsign </a> </td>"
-                                        ."<td> $username </td>"
-                                        ."<td><a href=\"siren.php?number=" . $siren . "\">$siren_slug </a></td>"
-                                        ."<td>$location</td>"
-                                        ."<td>$tonequality</td>"
-                                        ."<td>$voicequality</td>"
-                                        ."<td>$insideout</td>"
-                                      ."</tr>";
-        } 
-
-        echo "<h3>Net Summary for $netdate</h3>";
-        echo "Siren Checkins: $counter";
-        echo "<br><br>";
-        echo '<table class="table table-sm">';
-        echo '<thead class="thead-dark">';
-        echo '<tr>';
-        // echo "<th>Time</th> <th>Siren</th> <th>Siren Location</th> <th>Reported Location</th> <th>Tone Quality</th> <th>Voice Quality</th> <th>Inside/Outside</th>";
-        // echo "<th>Time</th> <th>Siren</th> <th>Reported Location</th> <th>Tone Quality</th> <th>Voice Quality</th> <th>Inside/Outside</th>";
-        echo "<th>Callsign</th> <th>Name</th> <th>Siren</th> <th>Reporter Location</th> <th>Tone Quality</th> <th>Voice Quality</th> <th>Inside/Outside</th>";
-
-        echo '<tr>';
-        echo "$datastring";
-        echo "</table>";
-
-        //mysqli_close($conn);
-
-        ?>
 <?php
+
+  $mytimestamp = date('Y-m-d H:i:s');
+  //echo "Timestamp is: $mytimestamp<br>";
+
+  $pdostring = 'mysql:host=' . $servername .';dbname=' . $dbname .';charset=utf8mb4';
+  $db = new PDO($pdostring, $username, $password);
+  $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+
+  $callsign = $_GET['callsign'];
+
+
+  if ($callsign == ""){
+      $callsign = "nobody";
+  }
+
+
+  $user = get_user_from_callsign($callsign);
+  $net = 2;
+  
+
+  $sql = <<<EOT
+  SELECT 
+    Checkins.user, 
+    Checkins.entry_time, 
+    Checkins.siren, 
+    CONCAT(Checkins.siren, ' - ', Sirens.`name`) AS 'siren_slug', 
+    Checkins.callsign, 
+    Checkins.location, 
+    Checkins.tonequality, 
+    Checkins.voicequality, 
+    Checkins.insideout, 
+    Checkins.net AS 'net', 
+    Sirens.`NAME` AS 'siren_name',
+    Nets.net_date AS 'netdate'
+  FROM Checkins
+  LEFT JOIN Sirens 
+    ON Checkins.`siren` = Sirens.`number`
+  JOIN Nets on Checkins.net = Nets.id
+  WHERE Checkins.net = (SELECT id FROM Nets WHERE net_date = ?)
+  ORDER BY callsign ASC
+EOT;
+  // echo "SQL Statement: $sql<br><br>";
+  // $stmt->execute(array($callsign));
+  $stmt = $db->prepare($sql);
+  $stmt->execute([$netdate]);
+  $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+  $counter = 0;
+  while ($row = array_shift($rows)){
+      $counter++;
+      $username = $row['user'];
+      $entry_time = $row['entry_time'];
+      $siren = $row['siren'];
+      $callsign = $row['callsign'];
+      $location = $row['location'];
+      $tonequality = $row['tonequality'];
+      $voicequality = $row['voicequality'];
+      $insideout = $row['insideout'];
+      $siren_slug = $row['siren_slug'];
+      $siren_name = $row['siren_name'];
+
+      $datastring = $datastring. "<tr>"
+                                  ."<td> <a href=\"maps.php?callsign=$callsign\"> $callsign </a> </td>"
+                                  ."<td> $username </td>"
+                                  ."<td><a href=\"siren.php?number=" . $siren . "\">$siren_slug </a></td>"
+                                  ."<td>$location</td>"
+                                  ."<td>$tonequality</td>"
+                                  ."<td>$voicequality</td>"
+                                  ."<td>$insideout</td>"
+                                ."</tr>";
+  } 
+
+  echo "<h3>Net Summary for $netdate</h3>";
+  echo "Siren Checkins: $counter";
+  echo "<br><br>";
+  echo '<table class="table table-sm">';
+    echo '<thead class="thead-dark">';
+      echo '<tr>';
+        echo "<th>Callsign</th> <th>Name</th> <th>Siren</th> <th>Reporter Location</th> <th>Tone Quality</th> <th>Voice Quality</th> <th>Inside/Outside</th>";
+      echo '<tr>';
+    echo "$datastring";
+  echo "</table>";
+
   sirenFooter();
 ?>
