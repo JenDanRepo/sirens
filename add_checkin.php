@@ -36,9 +36,7 @@ if ( $siren == '' ){
     $siren = 0;
 }
 
-//echo "attempting insert of $user, $callsign, $siren, $location, $tonequality, $voicequality, $entry_time <br><br>";
-
-$sql="INSERT INTO Checkins (user, callsign, siren, location, tonequality, voicequality, entry_time, insideout) VALUES (\"$user\", \"$callsign\", \"$siren\", \"$location\", \"$tonequality\", \"$voicequality\", \"$entry_time\", \"$insideout\")";
+$sql="INSERT INTO Checkins (user, callsign, siren, location, tonequality, voicequality, entry_time, insideout, net) VALUES (\"$user\", \"$callsign\", \"$siren\", \"$location\", \"$tonequality\", \"$voicequality\", \"$entry_time\", \"$insideout\", (SELECT id FROM Nets WHERE start_time < NOW() AND NOW() < end_time) )";
 
 //echo "SQL Statement: $sql<br><br>";
 
@@ -51,24 +49,6 @@ if (mysqli_query($conn, $sql)) {
 } else {
     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 }
-
-/*
-echo "<br><br>";
-$sql = "Select * FROM Checkins";
-$result = $conn->query($sql);
-
-
-while($row = mysqli_fetch_array($result)) {
-    $user = $row['user'];
-    $entry_time = $row['entry_time'];
-    $siren = $row['siren'];
-    $callsign = $row['callsign'];
-    $location = $row['location'];
-    $tonequality = $row['tonequality'];
-    $voicequality = $row['voicequality'];
-    echo "<br>$user<br>$entry_time<br>$siren<br>$callsign<br>$location<br>$tonequality<br>$voicequality<br>";
-} 
-*/
 
 mysqli_close($conn);
 
