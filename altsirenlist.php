@@ -95,12 +95,6 @@
     // var callsign = getQuery("callsign");
     var sirenxml = "phpsqlsearch_genxmlMaster.php";
 
-    // if (callsign !== ""){
-    //     sirenxml = sirenxml.concat("?callsign=", callsign);
-    // } else {
-    //     sirenxml = sirenxml.concat("?callsign=nobody");
-    // };
-
     // old url: https://storage.googleapis.com/mapsdevsite/json/mapmarkers2.xml
     downloadUrl(sirenxml, function(data) {
       var xml = data.responseXML;
@@ -162,6 +156,7 @@
 
   function doNothing() {}
 </script>
+
 <?php
   $api_url = "https://maps.googleapis.com/maps/api/js?&callback=initMap&key=" . $mapsapikey;
 
@@ -173,124 +168,62 @@ EOT;
 
 </div> <!-- End of id=map-->
 
-    <?php
+<?php
+  $mytimestamp = date('Y-m-d H:i:s');
+  //echo "Timestamp is: $mytimestamp<br>";
 
-        $mytimestamp = date('Y-m-d H:i:s');
-        //echo "Timestamp is: $mytimestamp<br>";
+  require('php_siren_lib.php');
 
-        
-        require('php_siren_lib.php');
+  $pdostring = 'mysql:host=' . $servername .';dbname=' . $dbname .';charset=utf8mb4';
+  $db = new PDO($pdostring, $username, $password);
+  $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 
-        $pdostring = 'mysql:host=' . $servername .';dbname=' . $dbname .';charset=utf8mb4';
-        $db = new PDO($pdostring, $username, $password);
-        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+  echo '<table class="table table-sm">';
+  echo '<thead>';
+  echo '<tr class="thead-dark">
+  <th>Number</th>
+  <th>Name</th>
+  <th>Language</th>
+  <th>Address</th>
+  <th>City</th>
+  <th>State</th>
+  <th>Zip</th>
+  <th>Lat</th>
+  <th>Lng</th>
+  </tr>
+  ';
+  echo '</thead>';
+  echo '<tbody>';
 
-        // $callsign = $_GET['callsign'];
+  foreach($db->query('SELECT * FROM Sirens') as $row) {
+    $id = $row['id'];
+    $number = $row['number'];
+    $name = $row['name'];
+    $language = $row['language'];
+    $address = $row['address'];
+    $city = $row['city'];
+    $state = $row['state'];
+    $zip = $row['zip'];
+    $lat = $row['lat'];
+    $lng = $row['lng'];
+    echo "<tr>";
 
-        // if ($callsign == ""){
-        //     $callsign = "nobody";
-        // }
+    echo "<td> <a href=\"./siren.php?number=$number\">$number</a></td>";
+    echo "<td> <a href=\"./siren.php?number=$number\">$name</a></td>";
+    echo "<td> $language</td>";
+    echo "<td> $address</td>";
+    echo "<td> $city</td>";
+    echo "<td> $state</td>";
+    echo "<td> $zip</td>";
+    echo "<td> $lat</td>";
+    echo "<td> $lng</td>";
+    echo "</tr>";
+  } 
+  echo '</tbody>';
+  echo "</table>";
 
-        /*
-        $user_sql = "SELECT user, COUNT(*) AS magnitude FROM Checkins WHERE callsign = \"$callsign\" GROUP BY user ORDER BY magnitude DESC LIMIT 1";
-                $user_result = $conn->query($user_sql);
-                $user_row=mysqli_fetch_array($user_result);
-            
-            $user= $user_row['user'];
-        */
-        // $user = get_user_from_callsign($callsign);
-
-        // $sql="SELECT * FROM Checkins WHERE callsign=\"$callsign\" ORDER BY entry_time DESC";
-
-        //echo "SQL Statement: $sql<br><br>";
-
-        //$result = $conn->query($sql);
-
-        // $counter = 0;
-
-        // $stmt = $db->prepare("SELECT * FROM Checkins WHERE callsign=? ORDER BY entry_time DESC");
-        // $stmt->execute(array($callsign));
-        // $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        // while ($row = array_shift($rows)){
-        //     $counter++;
-        //     // $user = $row['user'];
-        //     $entry_time = $row['entry_time'];
-        //     $siren = $row['siren'];
-        //     $callsign = $row['callsign'];
-        //     $location = $row['location'];
-        //     $tonequality = $row['tonequality'];
-        //     $voicequality = $row['voicequality'];
-        //     $insideout = $row['insideout'];
-
-        //     // $datastring = $datastring."<tr><td>$entry_time</td> <td>$siren</td> <td>Siren Location</td> <td>$location</td> <td>$tonequality</td> <td>$voicequality</td><td>$insideout</td></tr>";
-        //     // $datastring = $datastring."<tr><td>$entry_time</td> <td>$siren</td> <td>$location</td> <td>$tonequality</td> <td>$voicequality</td><td>$insideout</td></tr>";
-        //     $datastring = $datastring. "<tr><td>$entry_time</td> <td><a href=\"siren.php?number=" . $siren . "\">$siren</a></td> <td>$location</td> <td>$tonequality</td> <td>$voicequality</td><td>$insideout</td></tr>";
-        // } 
-
-        // echo "<h3>User Summary for $user ($callsign)</h3>";
-        // echo "Checkins: $counter";
-        // echo "<br><br>";
-        // echo '<table class="table table-sm">';
-        // echo '<thead class="thead-dark">';
-        // echo '<tr>';
-        // // echo "<th>Time</th> <th>Siren</th> <th>Siren Location</th> <th>Reported Location</th> <th>Tone Quality</th> <th>Voice Quality</th> <th>Inside/Outside</th>";
-        // echo "<th>Time</th> <th>Siren</th> <th>Reported Location</th> <th>Tone Quality</th> <th>Voice Quality</th> <th>Inside/Outside</th>";
-
-        // echo '<tr>';
-        // echo "$datastring";
-        // echo "</table>";
-
-        //mysqli_close($conn);
-          echo '<table class="table table-sm">';
-          echo '<thead>';
-          echo '<tr class="thead-dark">
-          <th>Number</th>
-          <th>Name</th>
-          <th>Language</th>
-          <th>Address</th>
-          <th>City</th>
-          <th>State</th>
-          <th>Zip</th>
-          <th>Lat</th>
-          <th>Lng</th>
-          </tr>
-          ';
-          echo '</thead>';
-          echo '<tbody>';
-
-          foreach($db->query('SELECT * FROM Sirens') as $row) {
-          //while($row = mysqli_fetch_array($result)) {
-              $id = $row['id'];
-              $number = $row['number'];
-              $name = $row['name'];
-              $language = $row['language'];
-              $address = $row['address'];
-              $city = $row['city'];
-              $state = $row['state'];
-              $zip = $row['zip'];
-              $lat = $row['lat'];
-              $lng = $row['lng'];
-              echo "<tr>";
-              //echo "<br>$name<br> $lat<br> $lng<br>";
-              //echo "<td> $id</td>";
-              echo "<td> <a href=\"./siren.php?number=$number\">$number</a></td>";
-              echo "<td> <a href=\"./siren.php?number=$number\">$name</a></td>";
-              echo "<td> $language</td>";
-              echo "<td> $address</td>";
-              echo "<td> $city</td>";
-              echo "<td> $state</td>";
-              echo "<td> $zip</td>";
-              echo "<td> $lat</td>";
-              echo "<td> $lng</td>";
-              echo "</tr>";
-          } 
-          echo '</tbody>';
-          echo "</table>";
-
-
-        ?>
+  ?>
 <?php
   sirenFooter();
 ?>
