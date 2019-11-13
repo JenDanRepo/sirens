@@ -25,7 +25,7 @@
 
 </style>
 
-<h3>Alternate Sirent List</h3>
+<h3>Alternate Siren List</h3>
 <!-- <form action="maps.php" method="get" border=1>
   Callsign:<input type="text" name="callsign">
   <input type="submit">
