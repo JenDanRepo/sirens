@@ -49,7 +49,9 @@
 <h3>Sirens in the Media</h3>
 <p>
 <ul>
-	<li><a href="https://www.kqed.org/news/11696153/7-things-to-know-about-san-franciscos-tuesday-noon-siren">7 Things to Know About San Francisco's Tuesday Noon Siren</li>
+	<li><a href="https://www.sfchronicle.com/sf/bayarea/heatherknight/article/This-is-only-a-test-S-F-s-emergency-16804551.php">‘This is only a test’: S.F.’s emergency siren upgrade goes the way of so many city projects — delayed and over budget</a></li>
+	</ul>
+	<li><a href="https://www.kqed.org/news/11696153/7-things-to-know-about-san-franciscos-tuesday-noon-siren">7 Things to Know About San Francisco's Tuesday Noon Siren</a></li>
 	</ul>
 </p>
 <?php
